@@ -11,22 +11,22 @@
 ├── Data/
 │   ├── data_raw_estimation_*.csv - Raw data, processed in script `data_preparation_and_inital_analysis.R`
 │   ├── data_analysis_*.csv   - Data used for model comparison analysis, created in `data_preparation_and_inital_analysis.R`
-|   ├── data_tidy_combined.csv - Combine tidy data for all domains (i.e., after filterting etc.), created in `data_preparation_and_inital_analysis.R`
-|   ├── ID_dictionaries.csv - Contains mapping of numeric IDs (used in the results of the model comparisons) and ID-strings (used in the estimation data)
+│   ├── data_tidy_combined.csv - Combine tidy data for all domains (i.e., after filterting etc.), created in `data_preparation_and_inital_analysis.R`
+│   ├── ID_dictionaries.csv - Contains mapping of numeric IDs (used in the results of the model comparisons) and ID-strings (used in the estimation data)
 │   └── Multidimensional Scaling/
 │       └── MDS_config_*.csv - Final MDS configurations used as inputs for all models (producing script can be found here: https://github.com/dizyd/Similarity-Datasets)
 ├── Figures
 |
 ├── Materials/
-│   ├── images/
-│   │   ├── Countries/
-│   │   ├── Food/
-│   │   ├── Mammals/
-│   │   └── LICENSE
-│   └── design_data_*.csv - lables, criterion values, image names and MDS coordinates for all stimuli
-|
+│  ├── images/
+│  │   ├── Countries/
+│  │   ├── Food/
+│  │   ├── Mammals/
+│  │   └── LICENSE
+│  └── design_data_*.csv - lables, criterion values, image names and MDS coordinates for all stimuli
+│
 ├── Results
-|
+│
 └── Scripts/
     ├── data_preparation_and_inital_analysis.R  - R code for data processing (filtering etc.), demographics and descriptive analysis 
     │
