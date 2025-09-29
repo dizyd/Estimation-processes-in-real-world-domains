@@ -1,9 +1,14 @@
-# Estimation-processes-in-real-world-domains
+# Estimation-processes-in-real-world-domains 
 
+<br>
 
+## About this repository
 
+This repository contains the data, materials, and the code to reproduce all analyses and figures in the project *Food, Mammals, & Countries: Stimuli, their Pairwise Similarities and MDS-Dimension Values for Modeling Judgment, Categorization, and Memory in three Real-World Domains*. The structure of this repository is as follows:
 
+<br>
 
+## Folder Structure:
 
 
 ```bash
@@ -65,4 +70,52 @@ attached packages:
 [13] dplyr_1.1.4       purrr_1.0.2       readr_2.1.5      
 [16] tidyr_1.3.1       tibble_3.2.1      ggplot2_3.5.2    
 [19] tidyverse_2.0.0 
+
+
+Python 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+Windows-10-10.0.26100-SP0
+
+absl-py 2.2.2          jaxlib 0.6.1            pure-eval 0.2.3
+arviz 0.21.0           jedi 0.19.2             pygments 2.19.1
+asttokens 3.0.0        jupyter-client 8.6.3    pyparsing 3.2.3
+bayesflow 2.0.3        jupyter-core 5.7.2      python-dateutil 2.9.0.post0
+colorama 0.4.6         keras 3.10.0            pytz 2025.2
+comm 0.2.2             kiwisolver 1.4.8        pywin32 310
+contourpy 1.3.2        llvmlite 0.44.0         pyzmq 26.4.0
+cycler 0.12.1          markdown-it-py 3.0.0    rich 14.0.0
+debugpy 1.8.14         matplotlib 3.10.3       scipy 1.15.3
+decorator 5.2.1        matplotlib-inline 0.1.7 seaborn 0.13.2
+executing 2.2.0        mdurl 0.1.2             setuptools 65.5.0
+fonttools 4.58.0       mizani 0.13.5           six 1.17.0
+h5netcdf 1.6.1         ml-dtypes 0.5.1         stack-data 0.6.3
+h5py 3.13.0            namex 0.0.9             statsmodels 0.14.4
+ipykernel 6.29.5       nest-asyncio 1.6.0      tornado 6.5.1
+ipython 9.2.0          numba 0.61.2            tqdm 4.67.1
+ipython-pygments-lexers 1.1.1  numpy 1.26.4     traitlets 5.14.3
+jax 0.6.1              opt-einsum 3.4.0        typing-extensions 4.13.2
+patsy 1.0.1            optree 0.15.0           tzdata 2025.2
+pillow 11.2.1          packaging 25.0          wcwidth 0.2.13
+pip 25.1.1             pandas 2.2.3            xarray 2025.4.0
+platformdirs 4.3.8     parso 0.8.4             xarray-einstats 0.9.0
+plotnine 0.14.5        prompt-toolkit 3.0.51   psutil 7.0.0                 
+                  
+                            
 ```
+
+
+This work, including all figures, is licensed under a <a rel="license" href=" https://creativecommons.org/licenses/by-nc-sa/4.0/ ">CC BY-NC-SA 4.0</a>.  
+
+<br>
+
+## Contributing Authors
+David Izydorczyk & Arndt Bröder
+
+
+## Abstract
+Will be added soon.
+
+## Publication
+(work in progress)
+
+## Funding
+This research was funded by Grant IZ 96/1-1 provided to David Izydorczyk from the German Research Foundation (DFG) and supported by the University of Mannheim’s Graduate School of Economic and Social Sciences.
