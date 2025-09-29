@@ -1,10 +1,10 @@
-# Estimation-processes-in-real-world-domains 
+# Unpacking Cognitive Processes of Estimation in Real-World Domains: A Competition of Computational Models
 
 <br>
 
 ## About this repository
 
-This repository contains the data, materials, and the code to reproduce all analyses and figures in the project *Food, Mammals, & Countries: Stimuli, their Pairwise Similarities and MDS-Dimension Values for Modeling Judgment, Categorization, and Memory in three Real-World Domains*. The structure of this repository is as follows:
+This repository contains the data, materials, results, and code to reproduce all analyses and figures in the project *Unpacking Cognitive Processes of Estimation in Real-World Domains: A Competition of Computational Models*. The structure of this repository is as follows:
 
 <br>
 
