@@ -47,3 +47,11 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+Scripts/Archive/
+Results/Archive/
+Data/Archive/
+Figures/Archive/
+
+Results/"Posteroior Predictions"/
+Results/Posterior Predictions/

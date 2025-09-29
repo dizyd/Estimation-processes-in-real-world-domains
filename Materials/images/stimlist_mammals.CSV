@@ -1,0 +1,81 @@
+ID;item;latin_name;category;family;img
+1;Aoudad;Ammotragus lervia;Artiodactyla;Bovidae;01.png
+2;Brazilian tapir;Tapirus terrestris;Perissodactyla;Tapiridae;02.png
+3;American bison;Bison bison;Artiodactyla;Bovidae;03.png
+4;Giant anteater;Myrmecophaga tridactyla;Pilosa;Myrmecophagidae;04.png
+5;Ibex;Capra ibex;Artiodactyla;Bovidae;05.png
+6;Thomson's gazelle;Eudorcas thomsonii;Artiodactyla;Bovidae;06.png
+7;Llama;Lama glama;Mammalia;Camelidae;07.png
+8;Kirk's dik-dik;Madoqua kirkii;Artiodactyla;Bovidae;08.png
+9;Red panda;Ailurus fulgens;Carnivora;Ailuridae;09.png
+10;African buffalo;Syncerus caffer;Artiodactyla;Bovidae;10.png
+11;Bactrian camel;Camelus bactrianus;Artiodactyla;Camelidae;11.png
+12;Dromedary;Camelus dromedarius;Artiodactyla;Camelidae;12.png
+13;Mule deer;Odocoileus hemionus;Artiodactyla;Cervidae;13.png
+14;Caribou and reindeer;Rangifer tarandus;Artiodactyla;Cervidae;14.png
+15;Giraffe;Giraffa camelopardalis;Artiodactyla;Giraffidae;15.png
+16;Hippopotamus;Hippopotamus amphibius;Artiodactyla;Hippopotamidae;16.png
+17;Wart hog;Phacochoerus africanus;Artiodactyla;Suidae;17.png
+18;Wild boar;Sus scrofa;Artiodactyla;Suidae;18.png
+19;Gray wolf;Canis lupus;Carnivora;Canidae;19.png
+20;African wild dog;Lycaon pictus;Carnivora;Canidae;20.png
+21;Raccoon dog;Nyctereutes procyonoides;Carnivora;Canidae;21.png
+22;Bat-eared fox;Otocyon megalotis;Carnivora;Canidae;22.png
+23;Cheetah;Acinonyx jubatus;Carnivora;Felidae;23.png
+24;Lion;Panthera leo;Carnivora;Felidae;24.png
+25;Leopard;Panthera pardus;Carnivora;Felidae;25.png
+26;Tiger;Panthera tigris;Carnivora;Felidae;26.png
+27;Dwarf mongoose;Helogale parvula;Carnivora;Herpestidae;27.png
+28;Meerkat;Suricata suricatta;Carnivora;Herpestidae;28.png
+29;Spotted hyena;Crocuta crocuta;Carnivora;Hyaenidae;29.png
+30;Sea otter;Enhydra lutris;Carnivora;Mustelidae;30.png
+31;Least weasel;Mustela nivalis;Carnivora;Mustelidae;31.png
+32;Steller sea lion;Eumetopias jubatus;Carnivora;Otariidae;32.png
+33;Harbor seal;Phoca vitulina;Carnivora;Phocidae;33.png
+34;Raccoon;Procyon lotor;Carnivora;Procyonidae;34.png
+35;Brown bear;Ursus arctos;Carnivora;Ursidae;35.png
+36;Polar bear;Ursus maritimus;Carnivora;Ursidae;36.png
+37;Humpback whale;Megaptera novaeangliae;Cetacea;Balaenopteridae;37.png
+38;Bottlenosed dolphin;Tursiops truncatus;Cetacea;Delphinidae;38.png
+39;Australian tiger cat;Dasyurus maculatus;Dasyuromorphia;Dasyuridae;39.png
+40;Tasmanian devil;Sarcophilus harrisii;Dasyuromorphia;Dasyuridae;40.png
+41;Western gray kangaroo;Macropus fuliginosus;Diprotodontia;Macropodidae;41.png
+42;Quokka;Setonix brachyurus;Diprotodontia;Macropodidae;42.png
+43;Sugar glider;Petaurus breviceps;Diprotodontia;Petauridae;43.png
+44;Brush-tailed possum;Trichosurus vulpecula;Diprotodontia;Phalangeridae;44.png
+45;Koala;Phascolarctos cinereus;Diprotodontia;Phascolarctidae;45.png
+46;Mountain hare;Lepus timidus;Lagomorpha;Leporidae;46.png
+47;European rabbit;Oryctolagus cuniculus;Lagomorpha;Leporidae;47.png
+48;Duck-billed platypus;Ornithorhynchus anatinus;Monotremata;Ornithorhynchidae;48.png
+49;Short-beaked echidna;Tachyglossus aculeatus;Monotremata;Tachyglossidae;49.png
+50;Horse;Equus caballus;Perissodactyla;Equidae;50.png
+51;Quagga;Equus quagga;Perissodactyla;Equidae;51.png
+52;White rhinoceros;Ceratotherium simum;Perissodactyla;Rhinocerotidae;52.png
+53;Central American spider monkey;Ateles geoffroyi;Primates;Atelidae;53.png
+54;White-tufted-ear marmoset;Callithrix jacchus;Primates;Cebidae;54.png
+55;Midas tamarin;Saguinus midas;Primates;Cebidae;55.png
+56;Tufted capu;Cebus apella;Primates;Cebidae;56.png
+57;De Brazza's monkey;Cercopithecus neglectus;Primates;Cercopithecidae;57.png
+58;Guereza;Colobus guereza;Primates;Cercopithecidae;58.png
+59;Stump-tailed macaque;Macaca arctoides;Primates;Cercopithecidae;59.png
+60;Proboscis monkey;Nasalis larvatus;Primates;Cercopithecidae;60.png
+61;Japanese macaque;Macaca fuscata;Primates;Cercopithecidae;61.png
+62;Gorilla;Gorilla gorilla;Primates;Hominidae;62.png
+63;Chimpanzee;Pan troglodytes;Primates;Hominidae;63.png
+64;Orangutan;Pongo pygmaeus;Primates;Hominidae;64.png
+65;Brown lemur;Eulemur fulvus;Primates;Â Lemuridae;65.png
+66;Black lemur;Eulemur macaco;Primates;Â Lemuridae;66.png
+67;Ring-tailed lemur;Lemur catta;Primates;Â Lemuridae;67.png
+68;Slender loris;Loris tardigradus;Primates;Lorisidae;68.png
+69;white-faced saki;Pithecia pithecia;Primates;Pitheciidae;69.png
+70;African bush elephant;Loxodonta africana;Proboscidea;Elephantidae;70.png
+71;Naked mole-rat;Heterocephalus glaber;Rodentia;Bathyergidae;71.png
+72;Guinea pig;Cavia porcellus;Rodentia;Caviidae;72.png
+73;Degu;Octodon degus;Rodentia;Octodontidae;73.png
+74;Lesser Egyptian jerboa;Jaculus jaculus;Rodentia;Dipodidae;74.png
+75;Long-tailed field mouse;Apodemus sylvaticus;Rodentia;Muridae;75.png
+76;Nutria;Myocastor coypus;Rodentia;Myocastoridae;76.png
+77;Eurasian red squirrel;Sciurus vulgaris;Rodentia;Sciuridae;77.png
+78;Siberian chipmunk;Tamias sibiricus;Rodentia;Sciuridae;78.png
+79;Dugong;Dugong dugon;Sirenia;Dugongidae;79.png
+80;Asiatic elephant;Elephas maximus;Proboscidea;Elephantidae;80.png

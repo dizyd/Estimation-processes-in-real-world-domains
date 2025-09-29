@@ -19,11 +19,11 @@ def distance(vec_1, vec_2, weights, p = 2):
     if len(vec_1) != len(vec_2):
         raise ValueError("Vectors must have the same number of dimensions (columns).")
     
-    if not np.isclose(np.sum(weights), 1.0):
-        raise ValueError("Weights must sum to 1.")
+    # if not np.isclose(np.sum(weights), 1.0):
+        # raise ValueError("Weights must sum to 1.")
 
     # Compute distance
-    d          = np.power(np.abs(vec_1 - vec_2),2)
+    d          = np.power(np.abs(vec_1 - vec_2),p)
 
     # Weight distance
     if weights is not None:
@@ -43,8 +43,8 @@ def distance_matrix(stim_cues, ex_cues, weights, p=2):
     if stim_cues.shape[1] != ex_cues.shape[1]:
         raise ValueError("Stimulus and exemplar cues must have the same number of features (columns).")
 
-    if not np.isclose(np.sum(weights), 1.0):
-        raise ValueError("Weights must sum to 1.")
+    # if not np.isclose(np.sum(weights), 1.0):
+        # raise ValueError("Weights must sum to 1.")
 
     # Expand dimensions to allow for broadcasting
 
@@ -163,6 +163,71 @@ def MAPP_experiment(n_cat,cues,ex_cues,ex_crit):
     
     return pred
 
+def MAPP_experiment_w(n_cat, weights, cues, ex_cues, ex_crit):
+
+    ex_cues_w = ex_cues * weights
+
+    # Compute exemplar cue/dimension score
+    ex_scores =   np.mean(ex_cues_w, axis=1)
+
+    # Find min and max
+    min_val = np.min(ex_scores)
+    max_val = np.max(ex_scores)
+
+    # Create n_cat equally spaced category boundaries
+    boundaries = np.linspace(min_val, max_val, n_cat + 1) # n_cat+1 points define n_cat bins
+
+    # Assign each exemplar to a category
+    categories = np.sum(ex_scores[:, np.newaxis] >= boundaries[:-1], axis=1)
+
+    # Combine exemplar criterion values with their category
+    ex_cats = np.array([ex_crit, categories]).T
+
+    # Get unique group labels
+    groups = np.unique(ex_cats[:, 1])  
+
+    # Create dictionary of categories and median criterion values
+    median_dict = {int(group): np.median(ex_cats[ex_cats[:, 1] == group][:, 0]) for group in groups}
+
+    # Compute the cue/dimension score for each stimulus
+    stim_scores = np.mean(cues, axis=1)
+
+    # Categorize stimuli
+    stim_cats = np.sum(stim_scores[:, np.newaxis] >= boundaries[:-1], axis=1)
+
+    # If score smaller than minmum of exemplar scores, put it into first category
+    stim_cats[stim_cats == 0] = 1
+
+    # If categories are empty fill them with the mean of the two adjecent categories
+    all_categories = np.unique(stim_cats)
+
+    # Determine missing categories
+    missing_cats = [cat for cat in all_categories if cat not in median_dict]
+
+    # Fill missing using nearest available neighbors
+    available_keys = sorted(median_dict.keys())
+
+    for cat in missing_cats:
+        # Find the closest lower and upper available keys
+        lower_vals = [k for k in available_keys if k < cat]
+        upper_vals = [k for k in available_keys if k > cat]
+
+        lower = lower_vals[-1] if lower_vals else None
+        upper = upper_vals[0] if upper_vals else None
+
+        if lower is not None and upper is not None:
+            median_dict[cat] = (median_dict[lower] + median_dict[upper]) / 2
+        elif lower is not None:
+            median_dict[cat] = median_dict[lower]
+        elif upper is not None:
+            median_dict[cat] = median_dict[upper]
+        else:
+            median_dict[cat] = np.nan
+
+    # Retrieve medians from dictionary
+    pred = np.array([median_dict[x] for x in stim_cats])
+    
+    return pred
 
 
 

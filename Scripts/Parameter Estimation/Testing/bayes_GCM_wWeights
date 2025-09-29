@@ -1,0 +1,30 @@
+model{
+
+  for(trial in 1:n_trials){
+  
+    Y[trial]    ~ dnorm(mu_exemplar[trial], tau[IDs[trial]])T(0,10000)
+
+
+      for(e in 1:n_exemplars){
+
+        dist[trial,e]  <- sqrt(sum(pow(d[trial,e,],2)*w[IDs[trial],1:n_cues]))
+        sim[trial,e]   <- exp(-c[IDs[trial]]*dist[trial,e])
+        c_hat[trial,e] <- sim[trial,e]*criterion[e]
+
+      }
+
+      mu_exemplar[trial] <- sum(c_hat[trial,])/sum(sim[trial,])
+
+  }
+
+
+ ##### Priors #####
+
+
+	for(p in 1:n_persons){
+        c[p]          ~ dexp(0.1)
+        tau[p]        <- pow(sigma[p],-2)
+        sigma[p]      ~ dexp(0.01)
+        w[p,1:n_cues] ~ ddirch(rep(1,n_cues))
+ 	}
+}

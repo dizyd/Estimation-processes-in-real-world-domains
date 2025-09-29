@@ -6,14 +6,16 @@ library(extrafont)
 library(viridis)
 library(psych)
 library(afex)
+library(kableExtra)
+library(correlation)
 
 source("Scripts/plot_settings.R")
 
 # Load Data              ---------------------------------------------------------------
 
-df_countries0 <- read_csv2("Data/data_raw_estimation_countries.csv")
-df_mammals0   <- read_csv2("Data/data_raw_estimation_mammals.csv")
-df_food0      <- read_csv2("Data/data_raw_estimation_food.csv")
+df_countries0 <- read_csv2("Data/data_raw_estimation_countries.csv") |> rename(knowledge = country_knowledge)
+df_mammals0   <- read_csv2("Data/data_raw_estimation_mammals.csv")   |> rename(knowledge = mammal_knowledge)
+df_food0      <- read_csv2("Data/data_raw_estimation_food.csv")      |> rename(knowledge = food_knowledge)
 
 # Filter: Mammals        ------------------------------------------------------------------
 
@@ -283,7 +285,7 @@ df_countries$est <- as.numeric(df_countries$est)
 # Combine                ---------------------------------------------------------
 
 
-est  <- bind_rows(df_food, df_countries,df_mammals)
+est  <- bind_rows(df_food, df_countries, df_mammals)
 
 # delete old objects
 rm(df_countries0,df_countries1,df_countries2,df_countries3,df_countries4,
@@ -294,14 +296,22 @@ rm(df_countries0,df_countries1,df_countries2,df_countries3,df_countries4,
    df_food5,df_food6,df_food7,df_food8,
    ID_rts_3SD, ID_AC, ID_ests, ID_rts_1000, ID_training, m_overall, sd_overall)
 
+
+write_csv2(est, file = "Data/data_tidy_combined.csv")
+
 # Demographics           ---------------------------------------------------------
 
-demo <- est |> select(ID,age,gender,domain) |> distinct()
+demo <- est |> select(ID,age,gender,domain, knowledge) |> distinct()
 
 
 table(demo$domain,demo$gender)
 
 describeBy(age ~ domain, data = demo)
+
+describeBy(knowledge ~ domain, data = demo)
+
+
+
 
 # Training Phase         ---------------------------------------------------------
 
@@ -313,7 +323,7 @@ est |>
   mutate(max_block = max(block)) |> 
   filter(block == max_block) |> 
   group_by(domain, ID) |> 
-  summarize(n_correct = sum(correct), .groups = "drop")%>% 
+  summarize(n_correct = sum(correct), .groups = "drop") %>% 
   describeBy(n_correct ~ domain, data = .)
 
 # nr. of blocks
@@ -344,7 +354,6 @@ est |>
 
 
 # Correlation of true and estimated values during learning
-
 est |> 
   filter(phase == "training") |>  
   group_by(ID, block, domain) |> 
@@ -356,6 +365,39 @@ est |>
     theme_nice() +
     facet_grid(.~domain)
 
+
+# Plot
+est |> 
+  filter(phase == "training") |> 
+  mutate(correct = ifelse(true < est * 1.1 & true > est * 0.9, 1, 0)) |> 
+  group_by(ID, block, domain, ID_item) |> 
+  summarize(AE = abs(true-est), .groups = "drop") |> 
+  group_by(ID, block, domain) |> 
+  summarize(AE = mean(AE), .groups = "drop") |> 
+  ggplot(aes(x = block, y = AE, color = ID)) +
+    geom_line(show.legend = FALSE, linewidth = 0.9) +
+    scale_x_continuous(breaks = 1:10) +
+    scale_color_viridis_d(option = "plasma") +
+    theme_nice() +
+    facet_wrap(.~domain,scales="free")
+
+
+
+est |> 
+  filter(phase == "training") |> 
+  mutate(correct = ifelse(true < est * 1.1 & true > est * 0.9, 1, 0)) |> 
+  group_by(ID) |> 
+  mutate(max_block = max(block)) |> 
+  group_by(ID, block, domain) |> 
+  summarize(n_correct = sum(correct), .groups = "drop",
+            max_block = mean(max_block))  |> 
+  filter(block == max_block) |> 
+  group_by(domain) |> 
+  summarize(m = mean(n_correct),
+            sd = sd(n_correct),
+            min = min(n_correct), 
+            max = max(n_correct),
+            m_max_block = mean(max_block), .groups = "drop")
 
 
 
@@ -392,6 +434,7 @@ testing |> filter(domain == "Countries", !is.na(est)) |> nrow() # 3838
 # Descr. stats of estimated and true criterion values
   
 tbl_est <- testing |> 
+              filter(training == 0) |> 
               group_by(domain) |> 
               summarize(m_est   = mean(est, na.rm=T),
                         sd_est  = sd(est, na.rm=T),
@@ -401,6 +444,7 @@ tbl_est <- testing |>
                         sd_T    = sd(true),
                         min_T   = min(true),
                         max_T   = max(true)) 
+
 tbl_est 
 
 tbl_est |> 
@@ -421,62 +465,116 @@ tbl_est |>
            title_format      = c("italic")) |> 
   add_header_above(c(" "=1,"Estimated"=4,"True" = 4))
 
+# Calcualte wisdom of crowds correlation
+# (i.e., correlation between average estimated and true)
+
+# Plot continued to script analysis_predictions.R
+testing |>
+  filter(training == 0) |>
+  group_by(domain, ID_item) |>
+  summarize(m_true = mean(true, na.rm=T),
+            m_est  = mean(est,  na.rm=T)) |>
+  group_by(domain) |>
+  correlation()
+
+r_df <- data.frame(domain = c("Countries","Food","Mammals"),
+                   r      = c("italic('r')~`=`~.84","italic('r')~`=`~.70","italic('r')~`=`~.72"),
+                   x      = c(60, 20, 1000),
+                   y      = c(80,68, 3700))
 
 
 # Plot distribution of true and actual estimates
 
-temp <- testing |> select(domain,true) |> distinct() |> add_column(y = 0)
+temp <- testing |> select(domain,true,training) |> distinct() |> add_column(y = 0)
 
-testing |> 
-  ggplot(aes(x = est,color=ID)) +
-    geom_point(aes(x = true,y=y), data = temp, pch = "|", stroke=3, size = 4,color = "black") +
-    geom_density(show.legend = F,  adjust = 2)+
-    geom_density(aes(x = true), color  = "black", linewidth=1.5, adjust = 2) +
-    scale_color_viridis_d(option = "plasma") +
-    theme_nice() + labs(x = "Criterion Value", y = "Density") + 
-    facet_wrap(.~domain, scales="free") +
-    scale_y_continuous(expand = c(0, 0), limits  = function(lim){
-        lim[2] <- lim[2]+lim[2]/8; return(lim)}) +
-    theme(axis.text.y=element_blank(),
-          axis.ticks.y=element_blank())
-  
+p_dists <- testing |>
+            ggplot(aes(x = est,color=ID)) +
+              geom_density(show.legend = F,  adjust = 2)+
+              geom_density(aes(x = true), color  = "black", linewidth=1.5, adjust = 2) +
+              geom_point(aes(x = true, y=y), data = temp |> filter(training == 0), pch = "|", stroke=3, size = 4,color = "black") +
+              geom_point(aes(x = true, y=y), data = temp |> filter(training == 1), pch = "|", stroke=3, size = 4,color = "red") +
+              scale_color_viridis_d(direction =-1) + # option = "plasma"
+              theme_nice() + labs(x = "Criterion", y = "Density") +
+              facet_wrap(.~domain, scales="free") +
+              scale_y_continuous(expand = c(0, 0), limits  = function(lim){
+                  lim[2] <- lim[2]+lim[2]/8; return(lim)}) +
+              theme(axis.text.y=element_blank(),
+                    axis.ticks.y=element_blank())
 
 
-ggsave("Figures/distribution_estimates.pdf",width=30,height=10,unit="cm",device = cairo_pdf)
+p_avg <- testing |>
+          filter(training == 0) |>
+          group_by(domain, ID_item) |>
+          summarize(m_true = mean(true, na.rm=T),
+                    m_est  = mean(est,  na.rm=T),
+                    se     = sd(est, na.rm=T)/sqrt(length(est)),
+                    .groups="drop") |>
+          ggplot(aes(x = m_true, y = m_est)) +
+            geom_errorbar(aes(ymin = m_est-se/2, ymax = m_est+se/2), width = 0) +
+            geom_point(size = 2, shape = 21, fill = "grey") +
+            geom_abline(intercept = 0, slope = 1, linewidth = 1, lty = "dashed") +
+            geom_smooth(method='lm', color = clrs[1], size = 1.5) +
+            geom_text(aes(x, y, label=r), data=r_df, vjust=1, size = 5,
+                      parse = T) +
+            facet_wrap(.~domain, scales="free") +
+            theme_nice() + labs(x = "True Criterion", y = "Avg. Estimated Criterion")
+
+
+
+p_dists / p_avg + plot_annotation(tag_levels = "A")
+
+save(list = c("p_dists","p_avg"),file = "Figures/ggplot_Figure2.Rdata")
+ggsave("Figures/distribution_estimates0.pdf",width=30,height=20,unit="cm",device = cairo_pdf)
 
 
 # Performane in AE
 
-testing <- testing |> mutate(AE = abs(true-est))
-
-testing |> 
-  group_by(domain,training) |> 
-  summarize(m  = mean(AE,na.rm=T),
-            sd = sd(AE,na.rm=T))
-
 testing |> 
   mutate(items = ifelse(training == 1, "old","new")) |> 
   group_by(ID, domain, items) |> 
-  summarize(m  = mean(AE,na.rm=T),.groups = "drop") %>%  
-  aov_ez(ID = "ID", dv = "m", data = ., between = "domain", within = "items")
+  summarize(RMSE  = sqrt(mean((true-est)^2,na.rm=T)),.groups = "drop") |> 
+  group_by(domain, items) |> 
+  summarize(m = mean(RMSE),
+            sd = sd(RMSE),.groups = "drop")
 
 
 testing |> 
   mutate(items = ifelse(training == 1, "old","new")) |> 
   group_by(ID, domain, items) |> 
-  summarize(m  = mean(AE,na.rm=T),.groups = "drop") |> 
-  ggplot(aes(x = items,y = m)) +
-  geom_jitter(width=0.1,alpha=0.25, group = 1) +
+  summarize(RMSE  = sqrt(mean((true-est)^2,na.rm=T)),.groups = "drop") %>%  
+  aov_ez(id = "ID", dv = "RMSE", data = ., between = "domain", within = "items")
+
+
+testing |> 
+  mutate(items = ifelse(training == 1, "old","new")) |> 
+  group_by(ID, domain, items) |> 
+  summarize(RMSE  =  sqrt(mean((true-est)^2,na.rm=T)),.groups = "drop")  |> 
+  pivot_wider(names_from  = items,
+              values_from = RMSE) |> 
+  group_by(domain) |> 
+  summarize(t  = t.test(new,old,var.equal=T,paired = T) |> papaja::apa_print() %>% .$statistic,
+            d  = lsr::cohensD(new, old, method = "paired"))
+
+
+
+
+testing |> 
+  mutate(items = ifelse(training == 1, "old","new")) |> 
+  group_by(ID, domain, items) |> 
+  summarize(RMSE  =  sqrt(mean((true-est)^2,na.rm=T)),.groups = "drop") |> 
+  mutate(domain_f = factor(domain, levels=c("Food","Countries","Mammals"))) |> 
+  ggplot(aes(x = items,y = RMSE)) +
+  geom_jitter(width=0.1,alpha=0.25, group = 1, size = 1.5) +
     stat_summary(fun.data = mean_se, geom = "errorbar",width=0.1) +
     stat_summary(fun = mean, geom="line",lwd=0.75,aes(group = 1)) +
-    stat_summary(fun = mean, geom="point", size = 3, shape = 21,
-                 fill = "grey50", color = "black", stroke = 1) +
-    facet_wrap(.~domain,scales="free") +
+    stat_summary(fun = mean, geom="point", size = 2, shape = 21,
+                 fill = clrs[1], color = "black", stroke = 1) +
+    facet_wrap(.~domain_f,scales="free") +
     theme_nice() +
-    labs(x = "Items", y = "Mean Absolute Error")
+    labs(x = "Items", y = "RMSE")
 
 
-ggsave("Figures/AE_testing.pdf",width=28,height=10,unit="cm",device = cairo_pdf)
+ggsave("Figures/RMSE_testing.pdf",width=20,height=8,unit="cm",device = cairo_pdf)
 
 
 
@@ -523,4 +621,21 @@ df_countries_wide <- testing |>
                         arrange(ID_item)
 
 
-write_csv(df_countries_wide, file="Data/data_analysis_countries .csv")
+write_csv(df_countries_wide, file="Data/data_analysis_countries.csv")
+
+
+# Make DF dictionary with IDs and ID_n (i.e., positional codings of IDs)
+
+ids_countries <- names(df_countries_wide[,6:ncol(df_countries_wide)])
+ids_food      <- names(df_food_wide[,6:ncol(df_food_wide)])
+ids_mammals   <- names(df_mammals_wide[,6:ncol(df_mammals_wide)])
+
+dic_df <- data.frame(IDs    = c(ids_food,ids_countries,ids_mammals),
+                     ID_n   = c(1:length(ids_food),1:length(ids_countries),1:length(ids_mammals)),
+                     domain = c(rep("Food",length(ids_food)),
+                                rep("Countries",length(ids_countries)),
+                                rep("Mammals",length(ids_mammals))))
+
+write_csv2(dic_df, file="Data/ID_dictionaries.csv")
+
+

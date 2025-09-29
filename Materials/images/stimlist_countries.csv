@@ -1,0 +1,81 @@
+ID;item;continent;img
+1;China;asia;c_1.png
+2;India;asia;c_2.png
+3;United States;north_america;c_3.png
+4;Nigeria;africa;c_4.png
+5;Brazil;south_america;c_5.png
+6;Russia;europe;c_6.png
+7;Mexico;north_america;c_7.png
+8;Ethiopia;africa;c_8.png
+9;Egypt;africa;c_9.png
+10;Vietnam;asia;c_10.png
+11;Democratic Republic of the Congo;africa;c_11.png
+12;Germany;europe;c_12.png
+13;Iran;asia;c_13.png
+14;France;europe;c_14.png
+15;South Africa;africa;c_15.png
+16;Tanzania;africa;c_16.png
+17;Colombia;south_america;c_17.png
+18;Argentina;south_america;c_18.png
+19;Canada;north_america;c_19.png
+20;Ukraine;europe;c_20.png
+21;Angola;africa;c_21.png
+22;Peru;south_america;c_22.png
+23;Yemen;asia;c_23.png
+24;Ivory Coast;africa;c_24.png
+25;Nepal;asia;c_25.png
+26;Venezuela;south_america;c_26.png
+27;Australia;oceania;c_27.png
+28;Taiwan;asia;c_28.png
+29;Syria;asia;c_29.png
+30;Burkina Faso;africa;c_30.png
+31;Chile;south_america;c_31.png
+32;Netherlands;europe;c_32.png
+33;Ecuador;south_america;c_33.png
+34;Benin;africa;c_34.png
+35;Bolivia;south_america;c_35.png
+36;Papua New Guinea;oceania;c_36.png
+37;Haiti;north_america;c_37.png
+38;Cuba;north_america;c_38.png
+39;Greece;europe;c_39.png
+40;Honduras;north_america;c_40.png
+41;United Arab Emirates;asia;c_41.png
+42;Libya;africa;c_42.png
+43;El Salvador;north_america;c_43.png
+44;Serbia;europe;c_44.png
+45;Paraguay;south_america;c_45.png
+46;Ireland;europe;c_46.png
+47;New Zealand;oceania;c_47.png
+48;Costa Rica;north_america;c_48.png
+49;Croatia;europe;c_49.png
+50;Mongolia;asia;c_50.png
+51;Uruguay;south_america;c_51.png
+52;Jamaica;north_america;c_52.png
+53;Moldova;europe;c_53.png
+54;Lesotho;africa;c_54.png
+55;Guinea-Bissau;africa;c_55.png
+56;Trinidad and Tobago;south_america;c_56.png
+57;Fiji;oceania;c_57.png
+58;Bhutan;asia;c_58.png
+59;Guyana;south_america;c_59.png
+60;Solomon Islands;oceania;c_60.png
+61;Suriname;south_america;c_61.png
+62;Brunei;asia;c_62.png
+63;Iceland;europe;c_63.png
+64;Maldives;asia;c_64.png
+65;São Tomé and Príncipe;africa;c_65.png
+66;Samoa;oceania;c_66.png
+67;Saint Lucia;north_america;c_67.png
+68;Saint Vincent and the Grenadines;north_america;c_68.png
+69;Seychelles;africa;c_69.png
+70;Tonga;oceania;c_70.png
+71;Dominica;north_america;c_71.png
+72;Saint Kitts and Nevis;north_america;c_72.png
+73;Marshall Islands;oceania;c_73.png
+74;San Marino;europe;c_74.png
+75;Palau;oceania;c_75.png
+76;Cook Islands;oceania;c_76.png
+77;Nauru;oceania;c_77.png
+78;Tuvalu;oceania;c_78.png
+79;Niue;oceania;c_79.png
+80;Vatican City;europe;c_80.png

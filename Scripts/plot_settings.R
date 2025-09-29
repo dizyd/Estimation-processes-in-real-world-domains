@@ -7,7 +7,7 @@ clrs <- c("#54AA8F"  ,"#00335B",
 theme_nice <- function(){
   theme_minimal(base_family = "Jost") +  
     theme(
-      plot.title       = element_text(hjust = 0.5,size = 20),
+      plot.title       = element_text(hjust = 0.5, size = 20),
       panel.grid.minor = element_blank(),
       text             = element_text(size  = 20),
       panel.border     = element_rect(colour = "black", linewidth = 0.5, fill = NA),
