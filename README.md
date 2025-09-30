@@ -31,12 +31,12 @@ This repository contains the data, materials, results, and code to reproduce all
 │  │   └── LICENSE
 │  └── `design_data_*.csv` - labels, criterion values, image names, and MDS coordinates for all stimuli
 │
-├── Results
+├── Results - Intermediate result files, such as trained networks as `.keras` files, estimated posterior model probabilities (in `pmp_*.csv`), parameters (`par_ests_*.csv`), and posterior predictions (`pred_*.csv`)
 │
 └── Scripts/
     ├── `data_preparation_and_inital_analysis.R`  - R code for data processing (filtering, etc.), demographics, and descriptive analysis 
     │
-    ├── `plot_settings.R`     - R code for the default ggplot2 theme and settings
+    ├── `plot_settings.R` - R code for the default ggplot2 theme and settings
     │
     ├── Model Comparison/
     │    ├── `BF2_Personwise_MC_*.ipynb`             - Python code for the model comparison analysis 
