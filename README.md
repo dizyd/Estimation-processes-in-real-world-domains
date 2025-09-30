@@ -113,7 +113,7 @@ David Izydorczyk & Arndt Bröder
 
 
 ## Abstract
-Will be added soon.
+Research on quantitative estimation often relies on either formal computational models that are tested with artificial stimuli or informal theories applied to real-world tasks. The current study bridges these approaches by testing established computational models of estimation with naturalistic stimuli from three domains: food items, countries, and mammals. Participants were trained to estimate domain-specific criteria (grams of carbohydrates per 100g for food items, life expectancy for countries, and days until female maturity for mammals) and then judged novel stimuli. We compared five candidate models — the Cue Abstraction Model, the Generalized Context Model, the RulEx-J hybrid, the Mapping Model, and QuickEst Heuristic — using a simulation-based Bayesian model comparison approach. Results showed that all models except QuickEst accounted for participants’ estimates, but dominant processes varied by domain. These findings highlight domain-specific variability in estimation strategies while demonstrating that computational models originally developed with artificial tasks can successfully capture judgments in real-world domains. Our results underscore the importance of testing cognitive process models beyond controlled laboratory contexts to better understand the mechanisms underlying everyday quantitative estimation.
 
 ## Publication
 (work in progress)
