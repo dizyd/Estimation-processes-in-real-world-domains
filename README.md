@@ -1,4 +1,4 @@
-# Unpacking Cognitive Processes of Estimation in Real-World Domains: A Competition of Computational Models
+# Unpacking Cognitive Processes of Estimation in Real-World Domains
 
 <br>
 
@@ -14,6 +14,7 @@ This repository contains the data, materials, results, and code to reproduce all
 ```bash
 .
 ├── Data/
+│   ├── codebooks.html - Shows information about the variables in each of the available data sets (file created by codebooks.qmd). To display the file correctly, it must be downloaded.
 │   ├── data_raw_estimation_*.csv - Raw data, processed in script `data_preparation_and_inital_analysis.R`
 │   ├── data_analysis_*.csv   - Data used for model comparison analysis, created in `data_preparation_and_inital_analysis.R`
 │   ├── data_tidy_combined.csv - Combine tidy data for all domains (i.e., after filterting etc.), created in `data_preparation_and_inital_analysis.R`
