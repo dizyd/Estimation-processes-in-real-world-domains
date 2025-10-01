@@ -1,10 +1,10 @@
-# Estimation-processes-in-real-world-domains 
+# Unpacking Cognitive Processes of Estimation in Real-World Domains
 
 <br>
 
 ## About this repository
 
-This repository contains the data, materials, and the code to reproduce all analyses and figures in the project *Food, Mammals, & Countries: Stimuli, their Pairwise Similarities and MDS-Dimension Values for Modeling Judgment, Categorization, and Memory in three Real-World Domains*. The structure of this repository is as follows:
+This repository contains the data, materials, results, and code to reproduce all analyses and figures in the project *Unpacking Cognitive Processes of Estimation in Real-World Domains: A Competition of Computational Models*. The structure of this repository is as follows:
 
 <br>
 
@@ -14,40 +14,41 @@ This repository contains the data, materials, and the code to reproduce all anal
 ```bash
 .
 ├── Data/
-│   ├── data_raw_estimation_*.csv - Raw data, processed in script `data_preparation_and_inital_analysis.R`
-│   ├── data_analysis_*.csv   - Data used for model comparison analysis, created in `data_preparation_and_inital_analysis.R`
-│   ├── data_tidy_combined.csv - Combine tidy data for all domains (i.e., after filterting etc.), created in `data_preparation_and_inital_analysis.R`
-│   ├── ID_dictionaries.csv - Contains mapping of numeric IDs (used in the results of the model comparisons) and ID-strings (used in the estimation data)
+│   ├── `codebooks.html`             - Shows information about the variables in each of the available data sets (file created by codebooks.qmd). To display the file correctly, it must be downloaded.
+│   ├── `data_raw_estimation_*.csv`  - Raw data, processed in script `data_preparation_and_initial_analysis.R`
+│   ├── `data_analysis_*.csv`        - Data used for model comparison analysis, created in `data_preparation_and_initial_analysis.R`
+│   ├── `data_tidy_combined.csv`     - Combine tidy data for all domains (i.e., after filtering etc.), created in `data_preparation_and_initial_analysis.R`
+│   ├── `ID_dictionaries.csv`        - Contains mapping of numeric IDs (used in the results of the model comparisons) and ID-strings (used in the estimation data)
 │   └── Multidimensional Scaling/
-│       └── MDS_config_*.csv - Final MDS configurations used as inputs for all models (producing script can be found here: https://github.com/dizyd/Similarity-Datasets)
+│       └── `MDS_config_*.csv`       - Final MDS configurations used as inputs for all models (producing script can be found here: https://github.com/dizyd/Similarity-Datasets)
 ├── Figures
-|
+│
 ├── Materials/
 │  ├── images/
 │  │   ├── Countries/
 │  │   ├── Food/
 │  │   ├── Mammals/
 │  │   └── LICENSE
-│  └── design_data_*.csv - lables, criterion values, image names and MDS coordinates for all stimuli
+│  └── `design_data_*.csv` - labels, criterion values, image names, and MDS coordinates for all stimuli
 │
-├── Results
+├── Results - Intermediate result files, such as trained networks as `.keras` files, estimated posterior model probabilities (in `pmp_*.csv`), parameters (`par_ests_*.csv`), and posterior predictions (`pred_*.csv`)
 │
 └── Scripts/
-    ├── data_preparation_and_inital_analysis.R  - R code for data processing (filtering etc.), demographics and descriptive analysis 
+    ├── `data_preparation_and_inital_analysis.R`  - R code for data processing (filtering, etc.), demographics, and descriptive analysis 
     │
-    ├── plot_settings.R     - R code for the default ggplot2 theme and settings
+    ├── `plot_settings.R` - R code for the default ggplot2 theme and settings
     │
     ├── Model Comparison/
-    │    ├── BF2_Personwise_MC_*.ipynb - Python code for the model comparison analysis 
-    │    ├── figures_and_tables_model_comparison.R - R Code to make the results figures and tables 
-    │    └── make_tidy_df_best_mod.R - Creates a tidy data.frame of the model comparison results, with the best fitting model per person
+    │    ├── `BF2_Personwise_MC_*.ipynb`             - Python code for the model comparison analysis 
+    │    ├── `figures_and_tables_model_comparison.R` - R Code to make the results figures and tables 
+    │    └── `make_tidy_df_best_mod.R`               - Creates a tidy data.frame of the model comparison results, with the best-fitting model per person
     │
     ├── Parameter Estimation/
-    │    └── BF2_Personwise_E_*.ipynb - Python code to compute posterior parameter estimates. 
+    │    └── `BF2_Personwise_E_*.ipynb` - Python code to compute posterior parameter estimates. 
     │
     ├── Posterior Predictions/
-    │    ├── BF2_gen_predictions__*.ipynb - Python code to generate posterior predictions.
-    │    └── analysis_Rsq_predictions.R - R code to analyze the posterior predictions.
+    │    ├── `BF2_gen_predictions__*.ipynb` - Python code to generate posterior predictions.
+    │    └── `analysis_Rsq_predictions.R`   - R code to analyze the posterior predictions.
     │
     └── Appendix/ - Contains scripts to produce tables and figures reported in the Appendix (e.g., lists of items, figure of priors, etc.)
      
@@ -112,7 +113,7 @@ David Izydorczyk & Arndt Bröder
 
 
 ## Abstract
-Will be added soon.
+Research on quantitative estimation often relies on either formal computational models that are tested with artificial stimuli or informal theories applied to real-world tasks. The current study bridges these approaches by testing established computational models of estimation with naturalistic stimuli from three domains: food items, countries, and mammals. Participants were trained to estimate domain-specific criteria (grams of carbohydrates per 100g for food items, life expectancy for countries, and days until female maturity for mammals) and then judged novel stimuli. We compared five candidate models — the Cue Abstraction Model, the Generalized Context Model, the RulEx-J hybrid, the Mapping Model, and QuickEst Heuristic — using a simulation-based Bayesian model comparison approach. Results showed that all models except QuickEst accounted for participants’ estimates, but dominant processes varied by domain. These findings highlight domain-specific variability in estimation strategies while demonstrating that computational models originally developed with artificial tasks can successfully capture judgments in real-world domains. Our results underscore the importance of testing cognitive process models beyond controlled laboratory contexts to better understand the mechanisms underlying everyday quantitative estimation.
 
 ## Publication
 (work in progress)
