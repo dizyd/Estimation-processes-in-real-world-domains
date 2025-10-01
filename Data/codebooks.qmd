@@ -1,0 +1,183 @@
+---
+title: "Codebook"
+format: 
+  html:
+    code-fold: true
+    code-copy: true
+    code-tools: true
+    embed-resources: true
+    df-print: kable
+    toc: true
+    toc-location: right
+    fig-format: svg
+    page-layout: full
+    fig-height: 4
+    fig-width:  9
+    fig-align: center
+execute:
+  warning: false
+  messages: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r packages}
+#| code-summary: "Load packages"
+
+library(tidyverse)
+library(kableExtra)
+```
+
+
+This page contains the **codebooks** (i.e., description of each variable) for the data files `data_raw_estimation_*.csv`, `data_tidy_combined.csv` and `data_analysis_*.csv`. The corresponding data files can be downloaded from the [Github](https://github.com/dizyd/Estimation-processes-in-real-world-domains/tree/main/Data). 
+
+```{r function}
+#| code-summary: "Helper function"
+
+# The make_df_readme function generates a summary of a given data frame in R, creating a descriptive table that outlines the structure and content of the data frame. If the add_examples parameter is set to TRUE (the default), the function samples two random rows from df as examples.
+
+make_df_readme <- function(df, desc, add_examples = TRUE, digits = 2, n_examples = 4) {
+  
+  # Input validation
+  if (!is.data.frame(df)) stop("The input 'df' must be a data frame.")
+  if (!is.character(desc) || length(desc) != ncol(df)) 
+    stop("The 'desc' argument must be a character vector with the same length as the number of columns in 'df'.")
+  if (!is.numeric(digits) || digits < 0) stop("The 'digits' argument must be a non-negative integer.")
+  if (!is.numeric(n_examples) || n_examples <= 0) stop("The 'n_examples' argument must be a positive integer.")
+  
+  # Create the initial summary dataframe
+  temp0 <- data.frame(
+    "Variable"       = names(df),
+    "Type"           = sapply(df, function(x) class(x)[1]), # Ensure it handles multiple class objects correctly
+    "Description"    = desc,
+    stringsAsFactors = FALSE
+  )
+  
+  row.names(temp0) <- NULL
+  
+  # Optionally add examples
+  if (add_examples) {
+    sampled_rows   <- df[sample(1:nrow(df), n_examples), ]
+    example_values <- apply(sampled_rows, 2, function(col) {
+      if (is.numeric(col)) {
+        col <- printnum(col, digits=digits)
+      }
+      paste(col, collapse = ", ")
+    })
+    
+    temp0$`Example values` <- example_values
+  }
+  
+  return(temp0)
+}
+```
+
+
+# `data_raw_estimation_*.csv`
+
+
+```{r items1}
+#| code-summary: "Read in data"
+
+# read in data
+df_food <- read_csv2("data_raw_estimation_food.csv")
+```
+
+The files `data_raw_estimation_*.csv` contain the raw data from the estimation experiment, separated by domain (food, mammals, countries). Each dataset includes the following variables:
+                       
+```{r}
+
+desc <- c("Unique person identifier",
+          "Date of participationd",
+          "Phase of the experiment [training, testing]",
+          "Number of trainings block [1-10]",
+          "Number of trial in the corresponding phase and block",
+          "Item label",
+          "Image file name of the corresponding item",
+          "Was this item in the training phase? [1 = yes, 0 = no]",
+          "Estimated criterion of this item by the participant",
+          "True criterion value of the item",
+          "Overall response time in ms for each estimate (from stimulus shown until confirmed button clicked)",
+          "Experimental: Time in ms the confirm-button was clicked (i.e., mouse-down) on each trial",
+          "Internal experimental clock time when the stimulus was shown",
+          "Internal experimental clock time when the first input was made by the participant",
+          "Individual keys pressed by the participants to type in their judgment (NA -> back/delete button)",
+          "Internal experimental clock time for all inputs",
+          "Controle question: ~ How did you make your estimates ? Did you use a specific strategy?",
+          "Self-reported knowledge of food/mammals/countries [1-7]",
+          "Controle question: ~ Should your date be used for analyis? [yes, no]",
+          "Controle question: ~ Did you use any form of aid? [yes, no]",
+          "Age of the participant",
+          "Gender of the participant [female, male, non_binary]",
+          "Controle question: ~ Were you able to work on the study undisturbed? [yes, no]",
+          "Controle question: ~ What disturbtions have occurred?",
+          "Controle question: ~ Where there any technical problems [yes, no]",
+          "Controle question: ~ Describe the problem") 
+  
+
+tbl <- make_df_readme(df_food,desc)
+
+if (knitr::is_latex_output()) {
+   tbl %>%
+      kable(format="latex", booktabs = TRUE)   %>% 
+      kableExtra::kable_styling(tbl, latex_options = 'scale_down')
+} else {
+  tbl %>% 
+    kable(format     = "html",
+          table.attr = 'class="table table-striped table-hover"',
+          escape     = FALSE) %>%
+    kable_styling(fixed_thead = T)
+}
+
+```
+
+# `data_tidy_combined.csv`
+
+```{r items2}
+#| code-summary: "Read in data"
+
+# read in data
+df_tidy <- read_csv("data_tidy_combined.csv")
+```
+
+The file `data_tidy_combined.csv` contains the tidy data (i.e., after filtering of participants) together for all domains. It has `r nrow(df_tidy)` rows and has the same variables as the `data_raw_estimation_*.csv` datasets with the additional variable `domain` which indicates the domain (Food, Mammals, Countries) the corresponding participant was in.
+
+
+# `data_analysis_*.csv`
+
+
+```{r items3}
+#| code-summary: "Read in data"
+
+# read in data
+df_temp <- read_csv("data_analysis_food.csv")
+```
+
+The files `data_analysis_*.csv` are in the long format and contain information about each participants estimates in the testing phase. The general variables are: 
+                       
+```{r}
+
+desc <- c("Numeric item identifier",
+          "Item label",
+          "Image file name of the corresponding item",
+          "Was this item in the training phase? [1 = yes, 0 = no]",
+          "True criterion value of the item") 
+  
+
+tbl <- make_df_readme(df_temp[,c(1:5)],desc)
+
+if (knitr::is_latex_output()) {
+   tbl %>%
+      kable(format="latex", booktabs = TRUE)   %>% 
+      kableExtra::kable_styling(tbl, latex_options = 'scale_down')
+} else {
+  tbl %>% 
+    kable(format     = "html",
+          table.attr = 'class="table table-striped table-hover"',
+          escape     = FALSE) %>%
+    kable_styling(fixed_thead = T)
+}
+
+```
+
+The remaining variables/columns are named after each participants `ID` (i.e., unique person identifier as present in `data_tidy_combined.csv` or the `data_raw_estimation_*.csv`) and contain the estimated criterion value of this participant for the correpsonding item.
