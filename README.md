@@ -1,10 +1,10 @@
-# Unpacking Cognitive Processes of Estimation in Real-World Domains
+# An Application of Established Computational Models of Estimation in Three Real-World Domains
 
 <br>
 
 ## About this repository
 
-This repository contains the data, materials, results, and code to reproduce all analyses and figures in the project *Unpacking Cognitive Processes of Estimation in Real-World Domains: A Competition of Computational Models*. The structure of this repository is as follows:
+This repository contains the data, materials, results, and code to reproduce all analyses and figures in the project *An Application of Established Computational Models of Estimation in Three Real-World Domains*. The structure of this repository is as follows:
 
 <br>
 

@@ -1,0 +1,1 @@
+Since the posterior prediction files are quite large (exceeding 1 GB), they are not included in the GitHub repository but are available in the corresponding folder of the project’s OSF repository.
