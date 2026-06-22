@@ -432,7 +432,6 @@ testing |> filter(domain == "Food", !is.na(est))      |> nrow() # 3674
 testing |> filter(domain == "Countries", !is.na(est)) |> nrow() # 3838
 
 
-
 # Descr. stats of estimated and true criterion values
   
 tbl_est <- testing |> 

@@ -115,6 +115,7 @@ ggsave("Figures/distribution_estimates.pdf",width=30,height=31,unit="cm",device 
 # R² by best fitting model    ---------------------------------------------------------------
   
 
+
 # Table 4
 df |> 
   filter(model == best_mod) |> 
@@ -141,6 +142,16 @@ df |>
   group_by(domain) |> 
   summarize(m  = mean(r^2),
             sd = sd(r^2))
+
+
+
+# Save compute R² table for easy access
+df |> 
+  filter(model == best_mod) |> 
+  group_by(domain,ID_ind,model) |> 
+  summarize(r   = cor(est,md_pred),
+            r2 = r^2)|> 
+  write_csv2("Results/Posterior Predictions/r2_per_person.csv")
 
 
 # Plot  RMSE ~ R²             ---------------------------------------------------------------
