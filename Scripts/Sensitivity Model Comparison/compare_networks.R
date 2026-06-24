@@ -33,35 +33,6 @@ pmp_mammals_l <- pmp_mammals |>
                     pivot_longer(cols = RULEXJ:RGuess, values_to = "pmp", names_to = "models")
 
 
-# Add actual IDs to the data.frames
-IDs_food      <- read_csv("Data/data_analysis_food.csv")      |> select(-ID_item,-training,-crit,-item,-img) |> names()
-IDs_countries <- read_csv("Data/data_analysis_countries.csv") |> select(-ID_item,-training,-crit,-item,-img) |> names()
-IDs_mammals   <- read_csv("Data/data_analysis_mammals.csv")   |> select(-ID_item,-training,-crit,-item,-img) |> names()
-
-
-pmp_food_l      <- pmp_food_l      |> add_column(ID = rep(IDs_food,each = 6))
-pmp_countries_l <- pmp_countries_l |> add_column(ID = rep(IDs_countries,each = 6))
-pmp_mammals_l   <- pmp_mammals_l   |> add_column(ID = rep(IDs_mammals,each = 6))
-
-
-# Load estimation data
-est     <- read_csv2("Data/data_tidy_combined.csv")
-testing <- est |>
-            filter(phase == "testing", ID_item != "Basketball") |> 
-            mutate(est = case_when(domain == "Mammals"   & est > 10000 ~ NA,
-                                   domain == "Food"      & est > 100   ~ NA,
-                                   domain == "Countries" & est > 100   ~ NA,
-                                   TRUE                                ~ est))
-
-
-# Compute MAE between true and estimated value for each person
-test_RMSE <- testing |> 
-                filter(training == 0) |> 
-                group_by(ID,domain) |> 
-                summarize(RMSE = sqrt(mean((est-true)^2,na.rm=T)))
-              
-
-
 # Make Figure 4 (PMPs)   ---------------------------------------------------------------
 
 
