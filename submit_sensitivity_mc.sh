@@ -1,14 +1,16 @@
 #!/bin/bash
 #SBATCH --job-name=sens_mc_mammals
-#SBATCH --partition=gpu_h100          # use dev_gpu_h100 for short test runs (<= some short dev limit)
-#SBATCH --gres=gpu:1                  # 1 GPU per array task; jax/keras here only uses 1 GPU anyway
+#SBATCH --partition=gpu_a100_il       
+#SBATCH --gres=gpu:1		
 #SBATCH --ntasks=1
+#SBATCH --nodes=1  				# compute nodes, for most jobs one is enough
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=32gb
-#SBATCH --time=03:30:00               # stay safely under any 4h-type limit
+#SBATCH --time=3:00:00                # stay safely under any 4h-type limit
 #SBATCH --array=0-9                   # one task per network (n_networks_total=10)
 #SBATCH --output=logs/train_%A_%a.out
 #SBATCH --error=logs/train_%A_%a.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=izydorczyk@uni-mannheim.de
 
 set -euo pipefail
 
@@ -33,7 +35,9 @@ echo "Running network id ${SLURM_ARRAY_TASK_ID} on $(hostname), GPU(s): ${CUDA_V
 python train_MC_mammals_SENSITIVITY.py \
     --network_id "${SLURM_ARRAY_TASK_ID}" \
     --n_networks_total 10 \
-    --epochs 2 \
-    --num_batches_per_epoch 2 \
+    --epochs 50 \
+    --num_batches_per_epoch 512 \
     --batch_size 64 \
-    --base_dir ".."
+    --base_dir "../.."
+
+deactivate
