@@ -18,6 +18,10 @@ mkdir -p logs
 
 # --- Environment -------------------------------------------------------
 module purge
+# Drop any inherited PYTHONPATH (e.g. from an auto-loaded jupyter/ai module in .bashrc),
+# which otherwise shadows the venv and causes ImportErrors like scipy._lib._util._lazywhere
+# being resolved from /opt/bwhpc/common/jupyter/ai/... instead of personwise_BF.
+unset PYTHONPATH
 module load devel/python/3.11    # adjust to whatever `module avail python` shows on bwUniCluster 3.0
 # If you use CUDA/cuDNN modules explicitly (rather than pip-installed jax[cuda] wheels), load them here, e.g.:
 # module load devel/cuda/12.x
@@ -38,6 +42,7 @@ python train_MC_mammals_SENSITIVITY.py \
     --epochs 50 \
     --num_batches_per_epoch 512 \
     --batch_size 64 \
+    --base_dir "../.."
     --base_dir "../.."
 
 deactivate
