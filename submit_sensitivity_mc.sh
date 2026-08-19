@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=sens_mc_mammals
+#SBATCH --job-name=sens_mc_countries
 #SBATCH --partition=gpu_a100_il       
 #SBATCH --gres=gpu:1		
 #SBATCH --ntasks=1
@@ -36,13 +36,12 @@ cd "${SLURM_SUBMIT_DIR}/Scripts/Sensitivity Model Comparison"
 
 echo "Running network id ${SLURM_ARRAY_TASK_ID} on $(hostname), GPU(s): ${CUDA_VISIBLE_DEVICES}"
 
-python train_MC_mammals_SENSITIVITY.py \
+python  train_MC_countries_SENSITIVITY.py \
     --network_id "${SLURM_ARRAY_TASK_ID}" \
     --n_networks_total 10 \
     --epochs 50 \
     --num_batches_per_epoch 512 \
     --batch_size 64 \
-    --base_dir "../.."
     --base_dir "../.."
 
 deactivate
