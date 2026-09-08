@@ -38,11 +38,10 @@ echo "Running network id ${SLURM_ARRAY_TASK_ID} on $(hostname), GPU(s): ${CUDA_V
 
 python train_MC_mammals_SENSITIVITY.py \
     --network_id "${SLURM_ARRAY_TASK_ID}" \
-    --n_networks_total 10 \
-    --epochs 50 \
+    --n_networks_total 50 \
+    --epochs 100 \
     --num_batches_per_epoch 512 \
     --batch_size 64 \
-    --base_dir "../.."
     --base_dir "../.."
 
 deactivate

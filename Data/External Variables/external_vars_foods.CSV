@@ -1,0 +1,81 @@
+ID;item;category;img;g_carbohydrates_per100g;g_sugar_per100g;g_protein_per100g;g_fat_per100g
+1;Spaghetti;Cereal products and potatoes;Bild1.png;71;3,2;12;1,2
+2;Rice;Cereal products and potatoes;Bild2.png;78;0;8,2;0,5
+3;Rigatoni;Cereal products and potatoes;Bild3.png;71;3,5;13;2
+4;Bread roll;Cereal products and potatoes;Bild4.png;44;3,5;10;4,2
+5;Oat flakes;Cereal products and potatoes;Bild5.png;59,6;0,8;13,2;6,8
+6;Couscous;Cereal products and potatoes;Bild6.png;70;2,5;12;1,5
+7;Bread;Cereal products and potatoes;Bild7.png;43,4;1,8;7,4;1
+8;Croissant;Cereal products and potatoes;Bild8.png;47;8,8;9;18
+9;White toast;Cereal products and potatoes;Bild9.png;46,9;4,3;8,6;3,5
+10;Bulgur;Cereal products and potatoes;Bild10.png;67;0,8;11;1,5
+11;Wrap;Cereal products and potatoes;Bild11.png;52,3;1,8;8,1;6,9
+12;Potatoes;Cereal products and potatoes;Bild12.png;18,9;0,7;2,1;0,1
+13;Cucumber;Vegetables;Bild13.png;1,8;1,8;0,6;0,2
+14;Bell pepper;Vegetables;Bild14.png;6,4;6,4;1,3;0,5
+15;Carrots;Vegetables;Bild15.png;6,8;6,4;0,8;0,2
+16;Corn;Vegetables;Bild16.png;11;5,1;2,9;1,9
+17;Fried egg;Dairy products and eggs;Bild17.png;1,5;1,5;11,9;9,3
+18;Broccoli;Vegetables;Bild18.png;2;2,7;3,8;0,5
+19;Tomatoes;Vegetables;Bild19.png;2,6;2,5;1;0,2
+20;Iceberg lettuce;Vegetables;Bild20.png;1,6;1,6;1;0,2
+21;Cauliflower;Vegetables;Bild21.png;2,3;1,8;2;0,3
+22;Mushrooms;Vegetables;Bild22.png;0,56;0,2;2,3;0,1
+23;Peas;Legumes;Bild23.png;9,1;2;2,6;0,5
+24;Lentils;Legumes;Bild24.png;50;1,2;25,5;1,5
+25;Beans;Legumes;Bild25.png;3;0,5;1,4;0,4
+26;Banana;Fruits;Bild26.png;20;17,2;1,1;0,2
+27;Apple;Fruits;Bild27.png;14,4;10,3;0,3;0,05
+28;Watermelon;Fruits;Bild28.png;8,3;3,7;0,3;0,1
+29;Kidney beans;Legumes;Bild29.png;13;0,5;7,5;0,6
+30;Orange;Fruits;Bild30.png;8,2;5,9;0,7;0,1
+31;Mandarin;Fruits;Bild31.png;10,1;6,6;0,4;0,2
+32;Mango;Fruits;Bild32.png;12,5;12,5;0,6;0,5
+33;Pineapple;Fruits;Bild33.png;12,4;12,4;0,4;0,1
+34;Strawberry;Fruits;Bild34.png;5,5;5,3;0,8;0,4
+35;Raspberry;Fruits;Bild35.png;4,8;4,8;1,3;0,3
+36;Pear;Fruits;Bild36.png;12,4;9,6;0,4;0,3
+37;Apricot;Fruits;Bild37.png;8,5;7,1;0,8;0,1
+38;Grapes;Fruits;Bild38.png;15,2;14,6;0,7;0,3
+39;Yogurt;Dairy products and eggs;Bild39.png;6,2;6,2;5,3;3,9
+40;Curd cheese;Dairy products and eggs;Bild40.png;4;4;11,1;0,3
+41;Gouda cheese;Dairy products and eggs;Bild41.png;0;0;3,4;29,1
+42;Butter;Dairy products and eggs;Bild42.png;0,5;0,5;0,5;82
+43;Feta;Dairy products and eggs;Bild43.png;0,7;0,7;16,5;23,1
+44;Mozzarella;Dairy products and eggs;Bild44.png;1;1;17;18
+45;Cream cheese;Dairy products and eggs;Bild45.png;2,7;2,7;5,3;23,3
+46;Salami;Meat (substitutes) and fish;Bild46.png;1,2;0,8;20;55,3
+47;Dried ham;Meat (substitutes) and fish;Bild47.png;1,2;0,6;26;20
+48;Vienna sausages;Meat (substitutes) and fish;Bild48.png;1;1;15;16
+49;Tuna (canned);Meat (substitutes) and fish;Bild49.png;0;0;24,3;1
+50;Shrimps;Meat (substitutes) and fish;Bild50.png;3,3;3,3;13,8;0,9
+51;Salmon;Meat (substitutes) and fish;Bild51.png;0,2;0;18,1;15,9
+52;Pork;Meat (substitutes) and fish;Bild52.png;0;0;23;5
+53;Chicken;Meat (substitutes) and fish;Bild53.png;1,5;1;20;2
+54;Nutella;Spreads;Bild54.png;57,3;56;6;30,7
+55;Cherry jam;Spreads;Bild55.png;55;54;0,5;0,2
+56;Raspberry jam;Spreads;Bild56.png;52;52;0,5;0,2
+57;Honey;Spreads;Bild57.png;81;75;0,5;0,5
+58;Peanut butter;Spreads;Bild58.png;17,2;8,4;26;53,2
+59;Gummy bears;Sweets and snacks;Bild59.png;77,1;45,7;6,9;0,5
+60;Ice cream;Sweets and snacks;Bild60.png;18,9;18,8;4,1;17,1
+61;Chocolate;Sweets and snacks;Bild61.png;55,1;53,9;6,5;31
+62;Vanilla pudding;Sweets and snacks;Bild62.png;14,1;10,8;3;3,2
+63;Chips;Sweets and snacks;Bild63.png;51;2,3;5,5;33
+64;Pretzel sticks;Sweets and snacks;Bild64.png;72;1,9;13;3,8
+65;Apple turnover;Sweets and snacks;Bild65.png;34;15;3,5;12
+66;Chocolate cake;Sweets and snacks;Bild66.png;50;32;5,4;24
+67;Cheesecake;Sweets and snacks;Bild67.png;33;21;7,3;18
+68;Cookies;Sweets and snacks;Bild68.png;57,9;32,1;6,3;26,1
+69;Peanuts;Nuts;Bild69.png;11,2;5,2;24;51,2
+70;Walnuts;Nuts;Bild70.png;3,8;3,1;16,2;69,2
+71;Whipped cream;Dairy products and eggs;Bild71.png;3,3;3,3;2,5;30
+72;Chickpeas;Legumes;Bild72.png;16;0,4;6,6;2,6
+73;Radishes;Vegetables;Bild73.png;2,1;2,2;1;0,1
+74;Fish sticks;Meat (substitutes) and fish;Bild74.png;18;0,8;13;8,6
+75;Vegetarian salami;Meat (substitutes) and fish;Bild75.png;9,4;4,4;32,8;9,4
+76;French fries;Cereal products and potatoes;Bild76.png;24;0,5;2,5;5,5
+77;Kinder chocolate bar;Sweets and snacks;Bild77.png;53,5;53,3;8,6;35,1
+78;Eggplant;Vegetables;Bild78.png;2,5;2,3;1,2;0,2
+79;Rice cake;Cereal products and potatoes;Bild79.png;77,1;0,5;8,6;3,3
+80;Dextrose;Sweets and snacks;Bild80.png;90,8;81,7;0;0,4

@@ -1,0 +1,81 @@
+ID;item;img;category;family;latin_name;female_maturity_days;average_weight_g;average_snout_vent_length_cm;average_lifespan_years;average_litter_size;habitat_type;diet;has_fur;has_legs;has_tail;main_color
+1;Aoudad;01.png;Artiodactyla;Bovidae;Ammotragus lervia;335;92500;155;21;1;Savanna;Herbivore;Yes;Yes;Yes;Red(ish)
+2;Brazilian tapir;02.png;Perissodactyla;Tapiridae;Tapirus terrestris;1095;225000;225;35;1;Forest;Omnivore;Yes;Yes;Yes;Brown
+3;American bison;03.png;Artiodactyla;Bovidae;Bison bison;912;624577;290;27;1;Grassland;Herbivore;Yes;Yes;Yes;Brown
+4;Giant anteater;04.png;Pilosa;Myrmecophagidae;Myrmecophaga tridactyla;1186;29532;151;26;1;Savanna;Insectivore;Yes;Yes;Yes;Grey
+5;Ibex;05.png;Artiodactyla;Bovidae;Capra ibex;797;77000;170;21;1;Mountains;Herbivore;Yes;Yes;Yes;Brown
+6;Thomson's gazelle;06.png;Artiodactyla;Bovidae;Eudorcas thomsonii;365;23198;93;15;1;Savanna;Herbivore;Yes;Yes;Yes;Yellow or Orangeish
+7;Llama;07.png;Mammalia;Camelidae;Lama glama;800;112500;175;29;1;Savanna;Herbivore;Yes;Yes;Yes;Brown
+8;Kirk's dik-dik;08.png;Artiodactyla;Bovidae;Madoqua kirkii;213;4833;69;17;1;Savanna;Herbivore;Yes;Yes;Yes;Brown
+9;Red panda;09.png;Carnivora;Ailuridae;Ailurus fulgens;550;4748;61;18;2;Forest;Herbivore;Yes;Yes;Yes;Red(ish)
+10;African buffalo;10.png;Artiodactyla;Bovidae;Syncerus caffer;1475;646333;296;30;1;Savanna;Herbivore;Yes;Yes;Yes;Black
+11;Bactrian camel;11.png;Artiodactyla;Camelidae;Camelus bactrianus;1278;475000;345;35;1;Savanna;Herbivore;Yes;Yes;Yes;Brown
+12;Dromedary;12.png;Artiodactyla;Camelidae;Camelus dromedarius;1095;434000;345;34;1;Savanna;Herbivore;Yes;Yes;Yes;Brown
+13;Mule deer;13.png;Artiodactyla;Cervidae;Odocoileus hemionus;478;57000;181;22;2;Mountains;Herbivore;Yes;Yes;Yes;Brown
+14;Caribou and reindeer;14.png;Artiodactyla;Cervidae;Rangifer tarandus;662;101250;221;20;1;Tundra;Herbivore;Yes;Yes;Yes;Grey
+15;Giraffe;15.png;Artiodactyla;Giraffidae;Giraffa camelopardalis;1278;800000;445;36;1;Savanna;Herbivore;Yes;Yes;Yes;Brown
+16;Hippopotamus;16.png;Artiodactyla;Hippopotamidae;Hippopotamus amphibius;1279;2640000;505;55;1;Savanna;Herbivore;No;Yes;Yes;Brown
+17;Wart hog;17.png;Artiodactyla;Suidae;Phacochoerus africanus;578;91250;136;21;3;Savanna;Omnivore;No;Yes;Yes;Grey
+18;Wild boar;18.png;Artiodactyla;Suidae;Sus scrofa;334;135000;157;21;6;Forest;Omnivore;Yes;Yes;Yes;Brown
+19;Gray wolf;19.png;Carnivora;Canidae;Canis lupus;669;29191;127;20;5;Forest;Carnivore;Yes;Yes;Yes;Grey
+20;African wild dog;20.png;Carnivora;Canidae;Lycaon pictus;639;24250;102;15;7;Savanna;Carnivore;Yes;Yes;Yes;Yellow or Orangeish
+21;Raccoon dog;21.png;Carnivora;Canidae;Nyctereutes procyonoides;304;4232;56;13;6;Forest;Omnivore;Yes;Yes;Yes;Black
+22;Bat-eared fox;22.png;Carnivora;Canidae;Otocyon megalotis;365;4150;60;14;4;Savanna;Insectivore;Yes;Yes;Yes;Grey
+23;Cheetah;23.png;Carnivora;Felidae;Acinonyx jubatus;456;50578;149;19;3;Savanna;Carnivore;Yes;Yes;Yes;Yellow or Orangeish
+24;Lion;24.png;Carnivora;Felidae;Panthera leo;1095;149062;217;27;3;Savanna;Carnivore;Yes;Yes;Yes;Yellow or Orangeish
+25;Leopard;25.png;Carnivora;Felidae;Panthera pardus;937;53075;164;23;2;Savanna;Carnivore;Yes;Yes;Yes;Yellow or Orangeish
+26;Tiger;26.png;Carnivora;Felidae;Panthera tigris;1268;128800;231;26;3;Forest;Carnivore;Yes;Yes;Yes;Yellow or Orangeish
+27;Dwarf mongoose;27.png;Carnivora;Herpestidae;Helogale parvula;456;275;23;14;3;Savanna;Insectivore;Yes;Yes;Yes;Grey
+28;Meerkat;28.png;Carnivora;Herpestidae;Suricata suricatta;365;776;32;13;4;Savanna;Insectivore;Yes;Yes;Yes;Brown
+29;Spotted hyena;29.png;Carnivora;Hyaenidae;Crocuta crocuta;1095;63000;138;41;2;Savanna;Carnivore;Yes;Yes;Yes;Brown
+30;Sea otter;30.png;Carnivora;Mustelidae;Enhydra lutris;974;943;35;19;1;Aquatic;Carnivore;Yes;Yes;Yes;Brown
+31;Least weasel;31.png;Carnivora;Mustelidae;Mustela nivalis;120;50;26;10;5;Grassland;Carnivore;Yes;Yes;Yes;Red(ish)
+32;Steller sea lion;32.png;Carnivora;Otariidae;Eumetopias jubatus;1780;382467;297;30;1;Aquatic;Carnivore;Yes;No;Yes;Brown
+33;Harbor seal;33.png;Carnivora;Phocidae;Phoca vitulina;1095;94283;181;40;1;Aquatic;Carnivore;Yes;No;Yes;Grey
+34;Raccoon;34.png;Carnivora;Procyonidae;Procyon lotor;365;5075;60;21;3;Forest;Omnivore;Yes;Yes;Yes;Grey
+35;Brown bear;35.png;Carnivora;Ursidae;Ursus arctos;1313;240500;229;44;2;Forest;Omnivore;Yes;Yes;Yes;Brown
+36;Polar bear;36.png;Carnivora;Ursidae;Ursus maritimus;1734;371704;225;44;2;Polar;Omnivore;Yes;Yes;Yes;White
+37;Humpback whale;37.png;Cetacea;Balaenopteridae;Megaptera novaeangliae;1643;30000000;1403;86;1;Aquatic;Carnivore;No;No;Yes;Grey
+38;Bottlenosed dolphin;38.png;Cetacea;Delphinidae;Tursiops truncatus;2831;230000;363;40;1;Aquatic;Carnivore;No;No;Yes;Grey
+39;Australian tiger cat;39.png;Dasyuromorphia;Dasyuridae;Dasyurus maculatus;340;1782;59;5;4;Forest;Omnivore;Yes;Yes;Yes;Brown
+40;Tasmanian devil;40.png;Dasyuromorphia;Dasyuridae;Sarcophilus harrisii;730;6500;68;8;3;Forest;Carnivore;Yes;Yes;Yes;Black
+41;Western gray kangaroo;41.png;Diprotodontia;Macropodidae;Macropus fuliginosus;670;26907;140;22;1;Grassland;Herbivore;Yes;Yes;Yes;Grey
+42;Quokka;42.png;Diprotodontia;Macropodidae;Setonix brachyurus;252;2821;60;12;1;Shrubland;Herbivore;Yes;Yes;Yes;Brown
+43;Sugar glider;43.png;Diprotodontia;Petauridae;Petaurus breviceps;236;128;17;14;2;Forest;Omnivore;Yes;Yes;Yes;Grey
+44;Brush-tailed possum;44.png;Diprotodontia;Phalangeridae;Trichosurus vulpecula;315;2005;53;15;1;Forest;Herbivore;Yes;Yes;Yes;Grey
+45;Koala;45.png;Diprotodontia;Phascolarctidae;Phascolarctos cinereus;646;5647;85;20;1;Forest;Herbivore;Yes;Yes;Yes;Grey
+46;Mountain hare;46.png;Lagomorpha;Leporidae;Lepus timidus;266;3028;56;15;3;Tundra;Herbivore;Yes;Yes;Yes;White
+47;European rabbit;47.png;Lagomorpha;Leporidae;Oryctolagus cuniculus;730;1900;45;10;5;Grassland;Herbivore;Yes;Yes;Yes;Brown
+48;Duck-billed platypus;48.png;Monotremata;Ornithorhynchidae;Ornithorhynchus anatinus;548;1225;42;17;2;Aquatic;Carnivore;Yes;Yes;Yes;Brown
+49;Short-beaked echidna;49.png;Monotremata;Tachyglossidae;Tachyglossus aculeatus;548;3170;38;50;1;Forest;Carnivore;Yes;Yes;Yes;Grey
+50;Horse;50.png;Perissodactyla;Equidae;Equus caballus;914;250000;280;57;1;Savanna;Herbivore;Yes;Yes;Yes;Brown
+51;Quagga;51.png;Perissodactyla;Equidae;Equus quagga;900;300000;257;21;1;Savanna;Herbivore;Yes;Yes;Yes;White
+52;White rhinoceros;52.png;Perissodactyla;Rhinocerotidae;Ceratotherium simum;1643;2230000;339;45;1;Savanna;Herbivore;No;Yes;Yes;Grey
+53;Central American spider monkey;53.png;Primates;Atelidae;Ateles geoffroyi;1825;7268;53;47;1;Forest;Herbivore;Yes;Yes;Yes;Brown
+54;White-tufted-ear marmoset;54.png;Primates;Cebidae;Callithrix jacchus;477;255;30;16;2;Forest;Omnivore;Yes;Yes;Yes;Grey
+55;Midas tamarin;55.png;Primates;Cebidae;Saguinus midas;608;547;29;15;2;Forest;Omnivore;Yes;Yes;Yes;Black
+56;Tufted capu;56.png;Primates;Cebidae;Cebus apella;1703;2643;49;45;1;Forest;Omnivore;Yes;Yes;Yes;Brown
+57;De Brazza's monkey;57.png;Primates;Cercopithecidae;Cercopithecus neglectus;1611;5701;51;29;1;Forest;Omnivore;Yes;Yes;Yes;Grey
+58;Guereza;58.png;Primates;Cercopithecidae;Colobus guereza;1461;9058;63;26;1;Forest;Herbivore;Yes;Yes;Yes;Black
+59;Stump-tailed macaque;59.png;Primates;Cercopithecidae;Macaca arctoides;1186;9353;60;29;1;Forest;Omnivore;Yes;Yes;Yes;Brown
+60;Proboscis monkey;60.png;Primates;Cercopithecidae;Nasalis larvatus;1460;13442;70;21;1;Forest;Herbivore;Yes;Yes;Yes;Yellow or Orangeish
+61;Japanese macaque;61.png;Primates;Cercopithecidae;Macaca fuscata;1483;8883;80;33;1;Savanna;Insectivore;Yes;Yes;Yes;Grey
+62;Gorilla;62.png;Primates;Hominidae;Gorilla gorilla;2829;126215;167;50;1;Forest;Herbivore;Yes;Yes;No;Black
+63;Chimpanzee;63.png;Primates;Hominidae;Pan troglodytes;3376;44984;87;59;1;Forest;Omnivore;Yes;Yes;No;Black
+64;Orangutan;64.png;Primates;Hominidae;Pongo pygmaeus;2555;58942;120;59;1;Forest;Herbivore;Yes;Yes;No;Red(ish)
+65;Brown lemur;65.png;Primates;Â Lemuridae;Eulemur fulvus;509;2419;49;35;1;Forest;Herbivore;Yes;Yes;Yes;Brown
+66;Black lemur;66.png;Primates;Â Lemuridae;Eulemur macaco;540;2485;42;30;1;Forest;Omnivore;Yes;Yes;Yes;Black
+67;Ring-tailed lemur;67.png;Primates;Â Lemuridae;Lemur catta;595;2555;43;30;1;Forest;Omnivore;Yes;Yes;Yes;Grey
+68;Slender loris;68.png;Primates;Lorisidae;Loris tardigradus;380;244;24;16;1;Forest;Insectivore;Yes;Yes;Yes;Red(ish)
+69;white-faced saki;69.png;Primates;Pitheciidae;Pithecia pithecia;775;1480;53;28;1;Forest;Herbivore;Yes;Yes;Yes;Black
+70;African bush elephant;70.png;Proboscidea;Elephantidae;Loxodonta africana;4018;2500000;750;65;1;Savanna;Herbivore;No;Yes;Yes;Grey
+71;Naked mole-rat;71.png;Rodentia;Bathyergidae;Heterocephalus glaber;228;35;11;16;9;Savanna;Herbivore;Yes;Yes;Yes;Brown
+72;Guinea pig;72.png;Rodentia;Caviidae;Cavia porcellus;66;639;40;12;3;Grassland;Herbivore;Yes;Yes;No;Brown
+73;Degu;73.png;Rodentia;Octodontidae;Octodon degus;182;205;24;7;5;Mountains;Herbivore;Yes;Yes;Yes;Brown
+74;Lesser Egyptian jerboa;74.png;Rodentia;Dipodidae;Jaculus jaculus;327;57;10;7;3;Savanna;Omnivore;Yes;Yes;Yes;Yellow or Orangeish
+75;Long-tailed field mouse;75.png;Rodentia;Muridae;Apodemus sylvaticus;71;23;12;4;5;Forest;Omnivore;Yes;Yes;Yes;Brown
+76;Nutria;76.png;Rodentia;Myocastoridae;Myocastor coypus;152;7150;58;8;5;Aquatic;Herbivore;Yes;Yes;Yes;Red(ish)
+77;Eurasian red squirrel;77.png;Rodentia;Sciuridae;Sciurus vulgaris;296;329;21;12;4;Forest;Herbivore;Yes;Yes;Yes;Red(ish)
+78;Siberian chipmunk;78.png;Rodentia;Sciuridae;Tamias sibiricus;350;85;15;9;5;Forest;Omnivore;Yes;Yes;Yes;Brown
+79;Dugong;79.png;Sirenia;Dugongidae;Dugong dugon;3470;360000;331;70;1;Aquatic;Herbivore;No;Yes;Yes;Grey
+80;Asiatic elephant;80.png;Proboscidea;Elephantidae;Elephas maximus;3287;3220000;416;74;1;Forest;Herbivore;No;Yes;Yes;Grey
