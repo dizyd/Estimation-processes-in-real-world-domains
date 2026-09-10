@@ -19,7 +19,7 @@ parser.add_argument("--network_id", type=int, required=True,
 parser.add_argument("--epochs", type=int, default=2)
 parser.add_argument("--num_batches_per_epoch", type=int, default=2)
 parser.add_argument("--batch_size", type=int, default=64)
-parser.add_argument("--n_networks_total", type=int, default=10,
+parser.add_argument("--n_networks_total", type=int, default=50,
                      help="Only used for sanity-checking network_id range.")
 parser.add_argument("--base_dir", type=str, default="..",
                      help="Project root that contains Materials/, Data/, Results/.")
