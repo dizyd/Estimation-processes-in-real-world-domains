@@ -18,7 +18,6 @@ pmp_countries_man <- read_csv("Results/Model Comparison/pmp_COUNTRIES.csv") |> r
 pmp_mammals_man   <- read_csv("Results/Model Comparison/pmp_MAMMALS.csv")   |> rename(ID = ...1) |> add_column(type = "Manuscript")
 
 
-
 # Load and combine .csv's -------------------------------------------------
 
 files_m <- list.files("Results/Sensitivity Model Comparison",
