@@ -1,0 +1,144 @@
+HOW TO RUN THE MODEL-COMPARISON TRAINING SCRIPTS (train_MC_*_SENSITIVITY.py)
+=============================================================================
+
+The folder contains three Python scripts, one per domain:
+
+    train_MC_food_SENSITIVITY.py
+    train_MC_countries_SENSITIVITY.py
+    train_MC_mammals_SENSITIVITY.py
+
+Each script trains ONE BayesFlow model-comparison network, fits it to all
+participants of that domain, and writes the resulting posterior model
+probabilities (PMPs) to a csv file. The number of the network is given by
+the --network_id argument (0, 1, 2, ...). To reproduce the results in the
+paper each script was run 50 times (network_id 0 to 49), which gives the
+50 files pmp_<DOMAIN>_0.csv ... pmp_<DOMAIN>_49.csv per domain.
+
+The submit_sensitivity_mc_*.sh files are Slurm job scripts that we used to
+run these 50 trainings in parallel on an HPC cluster (bwUniCluster). You do
+NOT need Slurm or the .sh files to run the scripts. They are only wrappers
+that (1) activate a Python environment and (2) call the Python script with
+the arguments listed below. This file explains how to do the same on a
+normal computer.
+
+
+1. Set up Python
+----------------
+
+You need Python 3.11 and the following packages (versions used by us are
+listed at the bottom of the repository README):
+
+    bayesflow (2.0.3), keras (3.10), jax + jaxlib (0.6.1),
+    numpy, pandas, scipy, statsmodels, tqdm
+
+Recommended: create a fresh virtual environment so nothing collides with
+other installations.
+
+    Windows (PowerShell / cmd):
+        python -m venv personwise_BF
+        personwise_BF\Scripts\activate
+        pip install "bayesflow==2.0.3" "keras==3.10.0" "jax==0.6.1" "jaxlib==0.6.1" numpy pandas scipy statsmodels tqdm
+
+    Linux / macOS:
+        python3 -m venv personwise_BF
+        source personwise_BF/bin/activate
+        pip install "bayesflow==2.0.3" "keras==3.10.0" "jax==0.6.1" "jaxlib==0.6.1" numpy pandas scipy statsmodels tqdm
+
+The scripts use JAX as the Keras backend. This is set inside the script
+automatically, but you can also set it yourself before running:
+
+    Windows (PowerShell):   $env:KERAS_BACKEND = "jax"
+    Windows (cmd):          set KERAS_BACKEND=jax
+    Linux / macOS:          export KERAS_BACKEND=jax
+
+
+2. Where to run the scripts from
+--------------------------------
+
+Open a terminal and change into THIS folder (the scripts import helper
+functions from the utils/ subfolder, so they must be started from here):
+
+    cd "<path to repository>/Scripts/Model Comparison"
+
+The scripts find the data via the --base_dir argument, which must point to
+the repository root (the folder containing Data/, Materials/ and Results/).
+From this folder that is two levels up, i.e. --base_dir "../..".
+
+
+3. Run one network
+------------------
+
+This is exactly the call that the submit_*.sh files make, with the settings
+used for the paper (epochs, batches, batch size). Replace "food" by
+"countries" or "mammals" for the other domains:
+
+    python train_MC_food_SENSITIVITY.py --network_id 0 --n_networks_total 50 --epochs 100 --num_batches_per_epoch 512 --batch_size 64 --base_dir "../.."
+
+Arguments:
+    --network_id             which network to train (0 ... n_networks_total-1);
+                             also used as the number in the output file name
+    --n_networks_total       how many networks you plan to train in total
+                             (only used to check that network_id is in range)
+    --epochs                 training epochs (paper: 100)
+    --num_batches_per_epoch  simulated batches per epoch (paper: 512)
+    --batch_size             simulations per batch (paper: 64)
+    --base_dir               path to the repository root
+
+With the paper settings one network takes several hours on a CPU (we used
+8 cores per network and a 20 h time limit on the cluster; JAX uses all
+available cores by default). To just check that everything works, use the
+small defaults, e.g.:
+
+    python train_MC_food_SENSITIVITY.py --network_id 0 --epochs 2 --num_batches_per_epoch 2 --base_dir "../.."
+
+
+4. Run all 50 networks
+----------------------
+
+On the cluster the 50 networks run in parallel as a job array. On a single
+machine you simply loop over the network ids (this runs them one after the
+other, so it takes 50x as long as a single network):
+
+    Windows (PowerShell):
+        foreach ($i in 0..49) { python train_MC_food_SENSITIVITY.py --network_id $i --n_networks_total 50 --epochs 100 --num_batches_per_epoch 512 --batch_size 64 --base_dir "../.." }
+
+    Windows (cmd):
+        for /L %i in (0,1,49) do python train_MC_food_SENSITIVITY.py --network_id %i --n_networks_total 50 --epochs 100 --num_batches_per_epoch 512 --batch_size 64 --base_dir "../.."
+
+    Linux / macOS (bash):
+        for i in $(seq 0 49); do python train_MC_food_SENSITIVITY.py --network_id $i --n_networks_total 50 --epochs 100 --num_batches_per_epoch 512 --batch_size 64 --base_dir "../.."; done
+
+If you want to run them in parallel on one machine, start several terminals
+with different network ids (and set OMP_NUM_THREADS to limit the cores each
+one uses, e.g. `export OMP_NUM_THREADS=4`).
+
+
+5. Output
+---------
+
+Each run writes two files (relative to --base_dir):
+
+    Results/Model Comparison/Trained Networks/sensitivity_MC_<DOMAIN>_<id>.keras
+        the trained network
+    Results/Model Comparison/pmp_<DOMAIN>_<id>.csv
+        posterior model probabilities, one row per participant, columns
+        RULEXJ, CAM, GCM, MAPP, QEst, RGuess (first unnamed column = row index)
+
+Note: in the repository the pmp files were afterwards moved into
+Results/Model Comparison/<Domain>/ (Food, Countries, Mammals), which is
+where the R script make_tidy_df_best_mod.R expects them. If you re-run the
+training, either move the new files there as well or adjust the folder
+path in read_pmp_domain() in that R script.
+
+
+6. Running on a Slurm cluster (optional)
+-----------------------------------------
+
+If you do have access to a Slurm cluster, adjust the #SBATCH header, the
+`module load` line and the path to the virtual environment in
+submit_sensitivity_mc_<domain>.sh, then submit from this folder with
+
+    sbatch submit_sensitivity_mc_food.sh
+
+The `--array=0-49` line starts 50 tasks, each of which calls the Python
+script with --network_id set to its array index.

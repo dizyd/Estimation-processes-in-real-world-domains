@@ -1,4 +1,4 @@
-# Load Packages          -----------------------------------------------------------
+# Load Packages                    -----------------------------------------------------------
 
 library(tidyverse)
 library(viridis)
@@ -9,39 +9,50 @@ library(kableExtra)
 source("Scripts/plot_settings.R")
 
 
-# Load Data              ---------------------------------------------------------------
+# Helper function                  ---------------------------------------------------------
 
-pmp_food      <- read_csv("Results/Model Comparison/pmp_FOOD.csv")      |> rename(ID = ...1)
-pmp_countries <- read_csv("Results/Model Comparison/pmp_COUNTRIES.csv") |> rename(ID = ...1)
-pmp_mammals   <- read_csv("Results/Model Comparison/pmp_MAMMALS.csv")   |> rename(ID = ...1)
+# Read all pmp_<DOMAIN>_<run>.csv files of one domain and stack them into one
+# data.frame. The run number (0-49) is taken from the file name and stored in `run`.
+read_pmp_domain <- function(folder, domain) {
+  files <- list.files(file.path("Results/Model Comparison", folder),
+                      pattern   = paste0("^pmp_", domain, "_\\d+\\.csv$"),
+                      full.names = TRUE)
+  
+  map_dfr(files, function(f) {
+    run <- as.integer(str_extract(basename(f), "\\d+(?=\\.csv$)"))
+    read_csv(f, show_col_types = FALSE) |>
+      rename(ID = ...1) |>
+      mutate(run = run, .before = 1)}) |>
+    arrange(run, ID)
+}
+
+
+# Load & tidy Data                 ---------------------------------------------------------------
+
+pmp_food      <- read_pmp_domain("Food",      "FOOD")
+pmp_countries <- read_pmp_domain("Countries", "COUNTRIES")
+pmp_mammals   <- read_pmp_domain("Mammals",   "MAMMALS")
 
 # Make into long format
+pmp_all_l <- bind_rows(Food      = pmp_food,
+                     Countries = pmp_countries,
+                     Mammals   = pmp_mammals,
+                     .id = "domain") |> 
+            mutate(ID_n = ID + 1) |> # python 0-index -> ID_n
+            pivot_longer(RULEXJ:RGuess, 
+                         names_to  = "model", 
+                         values_to = "pmp") |> 
+            mutate(model = toupper(model))
 
-pmp_food_l <- pmp_food |> 
-                rename(ID_ind = ID) |> 
-                mutate(ID_ind = ID_ind + 1) |> 
-                pivot_longer(cols = RULEXJ:RGuess, values_to = "pmp", names_to = "models") 
-
-pmp_countries_l <- pmp_countries |> 
-                      rename(ID_ind = ID) |> 
-                      mutate(ID_ind = ID_ind + 1) |>  
-                      pivot_longer(cols = RULEXJ:RGuess, values_to = "pmp", names_to = "models")
-
-pmp_mammals_l <- pmp_mammals |> 
-                    rename(ID_ind = ID) |> 
-                    mutate(ID_ind = ID_ind + 1) |> 
-                    pivot_longer(cols = RULEXJ:RGuess, values_to = "pmp", names_to = "models")
+# (a) average PMPs across runs
+pmp_avg_l <- pmp_all_l |> 
+              group_by(domain, ID_n, model) |> 
+              summarise(pmp = mean(pmp), .groups  = "drop")
 
 
 # Add actual IDs to the data.frames
-IDs_food      <- read_csv("Data/data_analysis_food.csv")      |> select(-ID_item,-training,-crit,-item,-img) |> names()
-IDs_countries <- read_csv("Data/data_analysis_countries.csv") |> select(-ID_item,-training,-crit,-item,-img) |> names()
-IDs_mammals   <- read_csv("Data/data_analysis_mammals.csv")   |> select(-ID_item,-training,-crit,-item,-img) |> names()
-
-
-pmp_food_l      <- pmp_food_l      |> add_column(ID = rep(IDs_food,each = 6))
-pmp_countries_l <- pmp_countries_l |> add_column(ID = rep(IDs_countries,each = 6))
-pmp_mammals_l   <- pmp_mammals_l   |> add_column(ID = rep(IDs_mammals,each = 6))
+ID_dict   <- read_csv2("Data/ID_dictionaries.csv") |> rename(ID = IDs)
+pmp_avg_l <- pmp_avg_l |> left_join(ID_dict, by = c("domain","ID_n")) 
 
 
 # Load estimation data
@@ -54,24 +65,23 @@ testing <- est |>
                                    TRUE                                ~ est))
 
 
-# Compute MAE between true and estimated value for each person
+# Compute RMSE between true and estimated value for each person
 test_RMSE <- testing |> 
                 filter(training == 0) |> 
                 group_by(ID,domain) |> 
-                summarize(RMSE = sqrt(mean((est-true)^2,na.rm=T)))
+                summarize(RMSE = sqrt(mean((est-true)^2,na.rm=T)), .groups  = "drop")
               
 
 
-# Make Figure 4 (PMPs)   ---------------------------------------------------------------
+# Make Figure 7 (PMPs)             ---------------------------------------------------------------
 
-
-mod_order <- c("RULEXJ", "CAM", "GCM", "MAPP",  "QEst", "RGuess")
-
+mod_order <- c("RULEXJ", "CAM", "GCM", "MAPP",  "QEST", "RGUESS")
 
   
-p_f <- pmp_food_l |> 
+p_f <- pmp_avg_l |>
+        filter(domain == "Food") |> 
         left_join(test_RMSE |> filter(domain == "Food"), by = "ID") |> 
-        ggplot(aes(x = models, y = reorder(ID,RMSE), fill = pmp)) +
+        ggplot(aes(x = model, y = reorder(ID,RMSE), fill = pmp)) +
           geom_tile(show.legend = F, color="white") +
           scale_fill_viridis(name = "Posterior\nModel\nProbability", limits = c(0, 1)) +
           scale_y_discrete(labels = function(x) sprintf("", x)) + # P%s
@@ -83,9 +93,10 @@ p_f <- pmp_food_l |>
           scale_x_discrete(limits = mod_order) 
 
 
-p_c <- pmp_countries_l |> 
+p_c <-  pmp_avg_l |>
+        filter(domain == "Countries") |> 
         left_join(test_RMSE |> filter(domain == "Countries"), by = "ID") |> 
-        ggplot(aes(x = models, y = reorder(ID,RMSE), fill = pmp)) + 
+        ggplot(aes(x = model, y = reorder(ID,RMSE), fill = pmp)) + 
           geom_tile(show.legend = F, color="white") +
           scale_fill_viridis(name = "Posterior Model\nProbability", limits = c(0, 1)) +
           scale_y_discrete(labels = function(x) sprintf("", x)) +
@@ -97,9 +108,10 @@ p_c <- pmp_countries_l |>
           scale_x_discrete(limits = mod_order)
 
 
-p_m <- pmp_mammals_l |> 
+p_m <-  pmp_avg_l |>
+        filter(domain == "Mammals") |> 
         left_join(test_RMSE |> filter(domain == "Mammals"), by = "ID") |> 
-        ggplot(aes(x = models, y = reorder(ID,RMSE), fill = pmp)) + 
+        ggplot(aes(x = model, y = reorder(ID,RMSE), fill = pmp)) + 
           geom_tile(show.legend = T, color="white") +
           scale_fill_viridis(name = "Posterior\nModel\nProbability\n", limits = c(0, 1)) +
           scale_y_discrete(labels = function(x) sprintf("", x)) +
@@ -136,20 +148,9 @@ arrw + p_f + p_c + p_m  +   plot_layout(ncol = 4)
 ggsave("Figures/pmp.pdf",width=30,height=25,units = "cm",device = cairo_pdf)
 
 
-# Make Tables            ---------------------------------------------------------------
+# Make Table 2                     ---------------------------------------------------------------
 
-
-
-best_mod_f <- apply(pmp_food[,-1],1,which.max) 
-best_mod_c <- apply(pmp_countries[,-1],1,which.max)
-best_mod_m <- apply(pmp_mammals[,-1],1,which.max)
-
-
-best_mod <- data.frame(domain = c(rep("Food",length(best_mod_f)),
-                                  rep("Countries",length(best_mod_c)),
-                                  rep("Mammals",length(best_mod_m))),
-                       ID     = c(1:length(best_mod_f),1:length(best_mod_c),1:length(best_mod_m)),
-                       best_mod_ind = c(best_mod_f,best_mod_c,best_mod_m))
+best_mod <- read_csv2("Results/Model Comparison/best_mods.csv")
 
 
 best_mod |> 
@@ -166,8 +167,8 @@ best_mod |>
         caption   = "Counts of best fitting model in each domain",
         escape    = FALSE)
 
-# Make Confusion Matrix  ---------------------------------------------------------------
-
+# Make Figure 6 (Confusion Matrix) ---------------------------------------------------------------
+# Based on single runs Scripts\Model Comparison\Single Runs
 # Copy values from .ipynbs for now, do it better later
 
 mods    <- c("RulEx-J","CAM","GCM","MAPP","QEst","RGuess")

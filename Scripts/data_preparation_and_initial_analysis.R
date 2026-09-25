@@ -479,7 +479,7 @@ testing |>
   correlation()
 
 r_df <- data.frame(domain = c("Countries","Food","Mammals"),
-                   r      = c("italic('r')~`=`~.84","italic('r')~`=`~.70","italic('r')~`=`~.72"),
+                   r      = c("italic('r')~`=`~'.84'","italic('r')~`=`~'.70'","italic('r')~`=`~'.72'"),
                    x      = c(60, 20, 1000),
                    y      = c(80,68, 3700))
 

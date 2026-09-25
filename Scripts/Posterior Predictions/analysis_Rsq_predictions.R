@@ -9,6 +9,7 @@ library(bayestestR)
 library(tidybayes)
 library(psych)
 library(correlation)
+library(matrixStats)
 
 source("Scripts/plot_settings.R")
 
@@ -26,10 +27,12 @@ best_mods        <- read_csv2("Results/Model Comparison/best_mods.csv")
 df_mammals <- preds_mammals |> 
                   rowwise() |> 
                   mutate(ID_ind  = ID_ind + 1,
-                         md_pred = median(i0:i4999)) |> 
+                         md_pred = rowMedians(as.matrix(pick(i0:i4999)), na.rm = TRUE)) |> 
                   select(ID_ind,model,test_trial,est,crit,md_pred)  |> 
                   left_join(best_mods |> filter(domain == "Mammals"),
                             by = join_by("ID_ind" == "ID_n"))
+
+apply(preds_mammals[,8:5006],1,median)
 
 
 df_food <- preds_food |> 
@@ -60,9 +63,8 @@ aggr_pred <- df |>
               select(ID,domain,test_trial,est,md_pred) |> 
               distinct() 
 
-# For Table 2 (Median Predicted)
+# For Table 1 (Median Predicted)
 describeBy(md_pred ~ domain, data = aggr_pred)
-
 
 # For correlations shown in Figure 4C
 aggr_pred |>  
@@ -73,33 +75,32 @@ aggr_pred |>
 
 
 r_df2 <- data.frame(domain = c("Countries","Food","Mammals"),
-                   r      = c("italic('r')~`=`~.89","italic('r')~`=`~.92","italic('r')~`=`~.89"),
+                   r      = c("italic('r')~`=`~'.88'","italic('r')~`=`~'.92'","italic('r')~`=`~'.90'"),
                    x      = c(66, 15, 1000),
                    y      = c(79, 54, 3600))
 
 # Plot distribution of true and actual estimates
 
-
 load("Figures/ggplot_Figure2.Rdata")
 
 p_pred <- df |>
-          filter(best_mod_ind < 5, model == best_mod) |> 
-          select(ID,domain,test_trial,est,md_pred) |> 
-          distinct() |> 
-          group_by(domain, test_trial) |> 
-          summarize(m_true_est   = mean(est, na.rm=T),
-                    m_aggr_pred  = mean(md_pred,  na.rm=T),
-                    se           = sd(md_pred, na.rm=T)/sqrt(length(md_pred)),
-                    .groups="drop") |> 
-          ggplot(aes(x = m_true_est, y = m_aggr_pred)) +
-            geom_errorbar(aes(ymin = m_aggr_pred-se/2, ymax = m_aggr_pred+se/2), width = 0) +
-            geom_point(size = 2, shape = 21, fill = "grey") +
-            geom_abline(intercept = 0, slope = 1, linewidth = 1, lty = "dashed") +
-            geom_smooth(method='lm', color = clrs[4], size = 1.5) +
-            geom_text(aes(x, y, label=r), data=r_df2, vjust=1, size = 5,
-                      parse = T) + 
-            facet_wrap(.~domain, scales="free") +
-            theme_nice() + labs(x = "Avg. Estimated Criterion", y = "Avg. Predicted Criterion") 
+            filter(best_mod_ind < 5, model == best_mod) |> 
+            select(ID,domain,test_trial,est,md_pred) |> 
+            distinct() |> 
+            group_by(domain, test_trial) |> 
+            summarize(m_true_est   = mean(est, na.rm=T),
+                      m_aggr_pred  = mean(md_pred,  na.rm=T),
+                      se           = sd(md_pred, na.rm=T)/sqrt(length(md_pred)),
+                      .groups="drop") |> 
+            ggplot(aes(x = m_true_est, y = m_aggr_pred)) +
+              geom_errorbar(aes(ymin = m_aggr_pred-se/2, ymax = m_aggr_pred+se/2), width = 0) +
+              geom_point(size = 2, shape = 21, fill = "grey") +
+              geom_abline(intercept = 0, slope = 1, linewidth = 1, lty = "dashed") +
+              geom_smooth(method='lm', color = clrs[4], size = 1.5) +
+              geom_text(aes(x, y, label=r), data=r_df2, vjust=1, size = 5,
+                        parse = T) + 
+              facet_wrap(.~domain, scales="free") +
+              theme_nice() + labs(x = "Avg. Estimated Criterion", y = "Avg. Predicted Criterion") 
 
 
 
@@ -116,7 +117,7 @@ ggsave("Figures/distribution_estimates.pdf",width=30,height=31,unit="cm",device 
   
 
 
-# Table 4
+# Table 3
 df |> 
   filter(model == best_mod) |> 
   group_by(domain,ID_ind,model) |> 
@@ -172,10 +173,9 @@ rsq |>
 
 
 r_df2 <- data.frame(domain_f = factor(c("Food","Countries","Mammals"), levels=c("Food","Countries","Mammals")),
-                    r      = c("italic('r')~`=`~.34*'*'","italic('r')~`=`~.38*'*' ","italic('r')~`=`~.31* '*' "),
+                    r      = c("italic('r')~`=`~'.34'*'*'","italic('r')~`=`~'.38'*'*' ","italic('r')~`=`~'.31'* '*' "),
                     y      = c(0.10,0.65,0.75),
                     x      = c(10,15,1100))
-
 
 
 # Figure 8
@@ -217,10 +217,6 @@ ggplot(df |> filter(ID %in% IDs, model == best_mod),
   labs(x = "Estimated", y = "Predicted")
 
 ggsave("temp.png",width=15,height=60,unit="cm",bg="white")
-
-
-
-
 
 
 ggplot(df |> filter(ID %in% IDs, model == best_mod)) +

@@ -28,8 +28,6 @@ pars <- left_join(pars,best_mod,by=c("ID_n","domain"))
 # with Standard point estimates (mean) and 
 # credibility intervals (95%-CI between the 2.5% and 97.5% quantiles of the corresponding posterior)
 
-
-
 temp <- pars |>  
           filter(model == best_mod) |> 
           group_by(domain, best_mod, paramter) |> 
@@ -106,7 +104,7 @@ temp |>
             parameter == "w_GCM[14]" ~ "$w_{14 \\text{ GCM}}$", 
             TRUE ~ parameter)) -> t_pars_food
   
-table(t_pars_food$best_mod)
+table(t_pars_food$best_mod,t_pars_food$n)
 
 t_pars_food |> 
   filter(best_mod == "CAM") |> 
