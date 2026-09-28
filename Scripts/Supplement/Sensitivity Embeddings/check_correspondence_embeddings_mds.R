@@ -34,14 +34,14 @@ mds_food      <- read_csv2("Data/Multidimensional Scaling/MDS_config_food.csv")
 mds_countries <- read_csv2("Data/Multidimensional Scaling/MDS_config_countries.csv")  
 
 # Embeddings
-word_embed_mammals <- read_csv("Data/Embeddings/embeddings_mammals_bge.csv") 
+word_embed_mammals <- read_csv("Data/Embeddings/embeddings_mammals_qwen3.csv") 
 img_embed_mammals  <- read_csv("Data/Embeddings/image_embeddings_mammals_vgg16.csv") 
 
-word_embed_food    <- read_csv("Data/Embeddings/embeddings_food_bge.csv") 
+word_embed_food    <- read_csv("Data/Embeddings/embeddings_food_qwen3.csv") 
 img_embed_food     <- read_csv("Data/Embeddings/image_embeddings_food_vgg16.csv") 
 
 
-embed_countries    <- read_csv("Data/Embeddings/embeddings_countries_bge.csv") 
+embed_countries    <- read_csv("Data/Embeddings/embeddings_countries_qwen3.csv") 
 
 
 # External vars
@@ -57,11 +57,11 @@ ex_countries  <- read_csv2("Data/External Variables/external_vars_countries.csv"
 
 # Concat Embeddings (see De Deyne et al. 2021)    ----------------------------
 
-embed_mammals   <- cbind(word_embed_mammals[,5:1028],img_embed_mammals[,2:4096]) |> as.matrix()
+embed_mammals   <- cbind(select(word_embed_mammals, starts_with("emb_")),img_embed_mammals[,2:4097]) |> as.matrix()
 
-embed_food      <- cbind(word_embed_food[,5:1028],img_embed_food[,2:4096]) |> as.matrix()
+embed_food      <- cbind(select(word_embed_food, starts_with("emb_")),img_embed_food[,2:4097]) |> as.matrix()
 
-embed_countries <- embed_countries[,5:1028] |> as.matrix()
+embed_countries <- embed_countries |> select(starts_with("emb_")) |> as.matrix()
 
 # Transform variables (normalize, one-hot encode) ----------------------------
 
