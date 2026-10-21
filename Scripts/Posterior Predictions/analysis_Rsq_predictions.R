@@ -25,30 +25,23 @@ best_mods        <- read_csv2("Results/Model Comparison/best_mods.csv")
 # Aggregate & Combine         ---------------------------------------------------------------
 
 df_mammals <- preds_mammals |> 
-                  rowwise() |> 
                   mutate(ID_ind  = ID_ind + 1,
                          md_pred = rowMedians(as.matrix(pick(i0:i4999)), na.rm = TRUE)) |> 
                   select(ID_ind,model,test_trial,est,crit,md_pred)  |> 
                   left_join(best_mods |> filter(domain == "Mammals"),
                             by = join_by("ID_ind" == "ID_n"))
 
-apply(preds_mammals[,8:5006],1,median)
-
-
 df_food <- preds_food |> 
-            rowwise() |> 
             mutate(ID_ind  = ID_ind + 1,
-                   md_pred = median(i0:i4999)) |> 
+                   md_pred = rowMedians(as.matrix(pick(i0:i4999)), na.rm = TRUE)) |> 
             select(ID_ind,model,test_trial,est,crit,md_pred)  |> 
             left_join(best_mods |> filter(domain == "Food"),
                       by = join_by("ID_ind" == "ID_n"))
 
 
-
 df_countries <- preds_countries |> 
-                  rowwise() |> 
                   mutate(ID_ind  = ID_ind + 1,
-                         md_pred = median(i0:i4999)) |> 
+                         md_pred = rowMedians(as.matrix(pick(i0:i4999)), na.rm = TRUE)) |> 
                   select(ID_ind,model,test_trial,est,crit,md_pred)  |> 
                   left_join(best_mods |> filter(domain == "Countries"),
                             by = join_by("ID_ind" == "ID_n"))
@@ -75,7 +68,7 @@ aggr_pred |>
 
 
 r_df2 <- data.frame(domain = c("Countries","Food","Mammals"),
-                   r      = c("italic('r')~`=`~'.88'","italic('r')~`=`~'.92'","italic('r')~`=`~'.90'"),
+                   r      = c("italic('r')~`=`~'.90'","italic('r')~`=`~'.92'","italic('r')~`=`~'.90'"),
                    x      = c(66, 15, 1000),
                    y      = c(79, 54, 3600))
 
@@ -110,11 +103,7 @@ p_dists / p_avg / p_pred + plot_annotation(tag_levels = "A")
 ggsave("Figures/distribution_estimates.pdf",width=30,height=31,unit="cm",device = cairo_pdf)
 
 
-
-
-
 # R² by best fitting model    ---------------------------------------------------------------
-  
 
 
 # Table 3
@@ -166,14 +155,13 @@ rsq <- df |>
 
 # Correlations for Figure 8
 rsq |> 
-  # filter((domain == "Countries" & RMSE < 14)| domain == "Food"|domain == "Mammals") |> 
   group_by(domain) |> 
   select(-ID_ind, -pmp) |> 
   correlation() 
 
 
 r_df2 <- data.frame(domain_f = factor(c("Food","Countries","Mammals"), levels=c("Food","Countries","Mammals")),
-                    r      = c("italic('r')~`=`~'.34'*'*'","italic('r')~`=`~'.38'*'*' ","italic('r')~`=`~'.31'* '*' "),
+                    r      = c("italic('r')~`=`~'.34'*'*'","italic('r')~`=`~'.36'*'*' ","italic('r')~`=`~'.25'* '' "),
                     y      = c(0.10,0.65,0.75),
                     x      = c(10,15,1100))
 
@@ -201,32 +189,26 @@ ggsave("Figures/scatterplot_RMSE_r2_pmp.pdf",width=30,height=10,unit="cm",device
 # ggsave("Figures/scatterplot_RMSE_r2_pmp_wo.pdf",width=30,height=10,unit="cm",device = cairo_pdf)
 
 
-# Playground                  --------------------------------------------------------------
+# Participants with low prediction success ---------------------------------------------
 
-IDs <- rsq |> filter(r2 < 0.1) |> pull(ID)
+rsq_low <- df |>
+  filter(model == best_mod) |>
+  group_by(domain, ID) |>
+  summarize(r2_pred       = cor(est, md_pred)^2,   # prediction success
+            r2_crit       = cor(est, crit)^2,      # estimates vs. true criterion
+            r2_model_crit = cor(md_pred, crit)^2,  # model predictions vs. true criterion
+            .groups = "drop") |>
+  mutate(low = r2_pred < .10)
 
+# Number of low-R² participants per domain
+rsq_low |> count(domain, low)
 
-ggplot(df |> filter(ID %in% IDs, model == best_mod),
-         aes(x = est, y  = md_pred)) +
-  #geom_line(aes(x = crit, y = crit), lty = "dashed") +
-  geom_point(size = 2, shape = 21, fill = "grey") +
-  geom_point(aes(y = crit), size = 2, shape = 21, fill = "red",alpha = 0.25) +
-  geom_smooth(method='lm', color = "black", size = 1.5) + 
-  theme_nice() + 
-  facet_wrap(domain~ID, scales="free", ncol = 2) +
-  labs(x = "Estimated", y = "Predicted")
+# R²(est, crit) and R²(pred, crit) for low vs. remaining participants
+rsq_low |>
+  group_by(low) |>
+  summarize(across(c(r2_crit, r2_model_crit), list(m = mean, min = min, max = max)))
 
-ggsave("temp.png",width=15,height=60,unit="cm",bg="white")
-
-
-ggplot(df |> filter(ID %in% IDs, model == best_mod)) +
-  geom_histogram(aes(x = est), fill = clrs[1], bins=30, alpha = 0.5) +
-  geom_histogram(aes(x = md_pred), fill = clrs[4], bins=30, alpha = 0.5) +
-  geom_histogram(aes(x = crit), fill = "grey", bins=30, alpha = 0.5) +
-  theme_nice() + 
-  facet_wrap(domain~ID, scales="free", ncol = 2)
-
-ggsave("temp.png",width=15,height=60,unit="cm",bg="white")
-
-
-
+# Correlation between prediction success and estimation-criterion R²
+rsq_low |>
+  group_by(domain) |>
+  summarize(r = cor(r2_pred, r2_crit))
